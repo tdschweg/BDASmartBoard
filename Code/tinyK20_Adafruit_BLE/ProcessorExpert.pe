@@ -3,7 +3,7 @@
   <Header>
     <Name>tinyK20_Adafruit_BLE</Name>
     <SavedBy>tastyger</SavedBy>
-    <ModificationStamp>40</ModificationStamp>
+    <ModificationStamp>41</ModificationStamp>
     <Date>2015-12-27</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1550-0615</PEversion>
@@ -22055,7 +22055,7 @@
         <ItemSymbol>ConfigFilesFolderName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>config</Value>
+        <Value />
         <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
       </ItemState>
       <ItemState>
