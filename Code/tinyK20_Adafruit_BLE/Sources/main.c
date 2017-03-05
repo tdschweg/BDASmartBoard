@@ -19,6 +19,7 @@
 ** @brief
 **         Main module.
 **         This module contains user's application code.
+**         Source Code for SmartBoard
 */         
 /*!
 **  @addtogroup main_module main module documentation
