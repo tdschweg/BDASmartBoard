@@ -3,7 +3,7 @@
   <Header>
     <Name>tinyK20_Adafruit_BLE</Name>
     <SavedBy>tastyger</SavedBy>
-    <ModificationStamp>41</ModificationStamp>
+    <ModificationStamp>34</ModificationStamp>
     <Date>2015-12-27</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1550-0615</PEversion>
@@ -29,7 +29,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>83</ProjectCompNumb>
+    <ProjectCompNumb>67</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>true</AssignInitComponentNameToPrph>
@@ -5374,7 +5374,7 @@
       <Value17>true</Value17>
       <ItemId18>59</ItemId18>
       <Value18>true</Value18>
-      <ItemId19>78</ItemId19>
+      <ItemId19>62</ItemId19>
       <Value19>true</Value19>
     </BoolList_BeanConfig>
     <BoolList_TaskConfig>
@@ -9158,7 +9158,7 @@
     <Events />
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>LED</BeanType>
     <Name>LED1</Name>
     <CompNumb>10</CompNumb>
@@ -9952,7 +9952,7 @@
     <Events />
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>Wait</BeanType>
     <Name>WAIT1</Name>
     <CompNumb>13</CompNumb>
@@ -10151,7 +10151,7 @@
     <Events />
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>Utility</BeanType>
     <Name>UTIL1</Name>
     <CompNumb>14</CompNumb>
@@ -10952,7 +10952,7 @@
     <Events />
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>CriticalSection</BeanType>
     <Name>CS1</Name>
     <CompNumb>15</CompNumb>
@@ -11032,7 +11032,7 @@
     <Events />
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>HardFault</BeanType>
     <Name>HF1</Name>
     <CompNumb>16</CompNumb>
@@ -11104,7 +11104,7 @@
     <Events />
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>KinetisTools</BeanType>
     <Name>KIN1</Name>
     <CompNumb>17</CompNumb>
@@ -11114,7 +11114,7 @@
     <UserFolderName />
     <Comment lines_count="0" />
     <Template />
-    <BeanVersion>01.034</BeanVersion>
+    <BeanVersion>01.037</BeanVersion>
     <LightErrorsIgnored>false</LightErrorsIgnored>
     <Properties>
       <ItemState>
@@ -11897,7 +11897,7 @@
     </Events>
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>RingBuffer</BeanType>
     <Name>RxBuffer</Name>
     <CompNumb>21</CompNumb>
@@ -12194,7 +12194,7 @@
     </Events>
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>FSL_USB_Stack</BeanType>
     <Name>USB1</Name>
     <CompNumb>22</CompNumb>
@@ -12245,9 +12245,9 @@
         <UserReadOnly>false</UserReadOnly>
         <Index>0</Index>
         <RegCompType>FSL_USB_CDC_Device</RegCompType>
-        <RegCompRepository>file:/${home_ProcessorExpert_loc}/MyComponents</RegCompRepository>
+        <RegCompRepository>file:/${ProcessorExpertPath:user}</RegCompRepository>
         <InheritedComponentState>
-          <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+          <Repository>file:/${ProcessorExpertPath:user}</Repository>
           <BeanType>FSL_USB_CDC_Device</BeanType>
           <Name>CDC1</Name>
           <CompNumb>24</CompNumb>
@@ -12257,7 +12257,7 @@
           <UserFolderName />
           <Comment lines_count="0" />
           <Template />
-          <BeanVersion>01.093</BeanVersion>
+          <BeanVersion>01.094</BeanVersion>
           <LightErrorsIgnored>false</LightErrorsIgnored>
           <Properties>
             <ItemState>
@@ -12271,6 +12271,14 @@
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
               <Value />
+              <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+            </ItemState>
+            <ItemState>
+              <ItemSymbol>sdk</ItemSymbol>
+              <ReadOnly>false</ReadOnly>
+              <UserReadOnly>false</UserReadOnly>
+              <Value />
+              <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
             </ItemState>
             <ItemState>
               <ItemSymbol>CPUDevice</ItemSymbol>
@@ -12356,6 +12364,7 @@
               <UserReadOnly>false</UserReadOnly>
               <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
               <Value>0</Value>
+              <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
               <Base>DEC</Base>
             </ItemState>
             <ItemState>
@@ -12394,9 +12403,9 @@
               <UserReadOnly>false</UserReadOnly>
               <Index>0</Index>
               <RegCompType>RingBuffer</RegCompType>
-              <RegCompRepository>file:/${home_ProcessorExpert_loc}/MyComponents</RegCompRepository>
+              <RegCompRepository>file:/${ProcessorExpertPath:user}</RegCompRepository>
               <InheritedComponentState>
-                <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+                <Repository>file:/${ProcessorExpertPath:user}</Repository>
                 <BeanType>RingBuffer</BeanType>
                 <Name>Tx1</Name>
                 <CompNumb>25</CompNumb>
@@ -12699,9 +12708,9 @@
               <UserReadOnly>false</UserReadOnly>
               <Index>0</Index>
               <RegCompType>RingBuffer</RegCompType>
-              <RegCompRepository>file:/${home_ProcessorExpert_loc}/MyComponents</RegCompRepository>
+              <RegCompRepository>file:/${ProcessorExpertPath:user}</RegCompRepository>
               <InheritedComponentState>
-                <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+                <Repository>file:/${ProcessorExpertPath:user}</Repository>
                 <BeanType>RingBuffer</BeanType>
                 <Name>Rx1</Name>
                 <CompNumb>26</CompNumb>
@@ -13067,14 +13076,8 @@
               <UserReadOnly>false</UserReadOnly>
               <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
               <Value>100</Value>
-              <Base>DEC</Base>
-            </ItemState>
-            <ItemState>
-              <ItemSymbol>sdk</ItemSymbol>
-              <ReadOnly>false</ReadOnly>
-              <UserReadOnly>false</UserReadOnly>
-              <Value />
               <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+              <Base>DEC</Base>
             </ItemState>
           </Properties>
           <Methods>
@@ -13226,6 +13229,7 @@
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
               <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
+              <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
               <Index>0</Index>
               <Value>true</Value>
               <LastSelection>true</LastSelection>
@@ -13237,6 +13241,7 @@
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
               <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
+              <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
               <Index>0</Index>
               <Value>true</Value>
               <LastSelection>true</LastSelection>
@@ -13292,6 +13297,7 @@
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
               <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
+              <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
               <Index>0</Index>
               <Value>true</Value>
               <LastSelection>true</LastSelection>
@@ -15069,7 +15075,7 @@
     </Events>
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>Shell</BeanType>
     <Name>CLS1</Name>
     <CompNumb>27</CompNumb>
@@ -15683,7 +15689,7 @@
     </Events>
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>FreeRTOS</BeanType>
     <Name>FRTOS1</Name>
     <CompNumb>31</CompNumb>
@@ -15693,7 +15699,7 @@
     <UserFolderName />
     <Comment lines_count="0" />
     <Template />
-    <BeanVersion>01.523</BeanVersion>
+    <BeanVersion>01.529</BeanVersion>
     <LightErrorsIgnored>false</LightErrorsIgnored>
     <Properties>
       <ItemState>
@@ -15783,6 +15789,12 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <Value>FreeRTOS\Source\portable\MemMang</Value>
+      </ItemState>
+      <ItemState>
+        <ItemSymbol>RTOSCommonFolderName</ItemSymbol>
+        <ReadOnly>false</ReadOnly>
+        <UserReadOnly>false</UserReadOnly>
+        <Value>FreeRTOS/Source/portable/Common</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>RTOSConfigFolderName</ItemSymbol>
@@ -16064,6 +16076,14 @@
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
         <Index>0</Index>
         <EnumSymbVal>0</EnumSymbVal>
+      </ItemState>
+      <ItemState>
+        <ItemSymbol>useMPUsupport</ItemSymbol>
+        <ReadOnly>false</ReadOnly>
+        <UserReadOnly>false</UserReadOnly>
+        <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
+        <Index>1</Index>
+        <Value>false</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>useARMSysTickTimer</ItemSymbol>
@@ -16633,20 +16653,6 @@
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
         <Index>0</Index>
         <Value>true</Value>
-      </ItemState>
-      <ItemState>
-        <ItemSymbol>RTOSCommonFolderName</ItemSymbol>
-        <ReadOnly>false</ReadOnly>
-        <UserReadOnly>false</UserReadOnly>
-        <Value>FreeRTOS/Source/portable/Common</Value>
-      </ItemState>
-      <ItemState>
-        <ItemSymbol>useMPUsupport</ItemSymbol>
-        <ReadOnly>false</ReadOnly>
-        <UserReadOnly>false</UserReadOnly>
-        <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Index>1</Index>
-        <Value>false</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>ARMLowestInterrutpPriority</ItemSymbol>
@@ -18160,7 +18166,7 @@
     </Events>
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>Timeout</BeanType>
     <Name>TMOUT1</Name>
     <CompNumb>36</CompNumb>
@@ -18304,7 +18310,7 @@
     <Events />
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>SeggerSystemView</BeanType>
     <Name>SYS1</Name>
     <CompNumb>39</CompNumb>
@@ -18638,7 +18644,7 @@
     <Events />
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>SeggerRTT</BeanType>
     <Name>RTT1</Name>
     <CompNumb>41</CompNumb>
@@ -21950,7 +21956,7 @@
     </Events>
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>XFormat</BeanType>
     <Name>XF1</Name>
     <CompNumb>59</CompNumb>
@@ -22022,17 +22028,17 @@
     <Events />
   </Bean>
   <Bean>
-    <Repository>file:/${home_ProcessorExpert_loc}/MyComponents</Repository>
+    <Repository>file:/${ProcessorExpertPath:user}</Repository>
     <BeanType>McuLibConfig</BeanType>
     <Name>MCUC1</Name>
-    <CompNumb>78</CompNumb>
+    <CompNumb>62</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
     <IconName>SWITCH</IconName>
     <UserFolderName />
     <Comment lines_count="0" />
     <Template />
-    <BeanVersion>01.007</BeanVersion>
+    <BeanVersion>01.008</BeanVersion>
     <LightErrorsIgnored>false</LightErrorsIgnored>
     <Properties>
       <ItemState>
@@ -22048,8 +22054,8 @@
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
         <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-        <Index>2</Index>
-        <EnumSymbVal>KinetisSDK1.3</EnumSymbVal>
+        <Index>1</Index>
+        <EnumSymbVal>ProcessorExpertSDK</EnumSymbVal>
       </ItemState>
       <ItemState>
         <ItemSymbol>ConfigFilesFolderName</ItemSymbol>
