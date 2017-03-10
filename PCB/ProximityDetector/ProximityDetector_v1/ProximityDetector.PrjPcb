@@ -70,6 +70,10 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=OAOOSEIE
 
+[GeneratedDocument1]
+DocumentPath=Project Outputs for ProximityDetector\Design Rule Check - ProximityDetector.html
+DItemRevisionGUID=
+
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0

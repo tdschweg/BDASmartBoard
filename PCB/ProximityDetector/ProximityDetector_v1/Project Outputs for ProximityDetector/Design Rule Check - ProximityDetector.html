@@ -1,0 +1,594 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD14\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">10.03.2017</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">20:43:56</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc" class="file"><acronym title="C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc">C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">59</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="IDIZASRNF2HJZDIUCU2EXVEISWKJOWGPX2NDLQTBP2YDKQYHAF4Y4N"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDOMC53JV0HLTDOZITYGDOU3ZGQDEVPU1M0EF2WTE4AK1S2AKXFUDO">Room ProximityDetector (Bounding Region = (1000mil, 1000mil, 6905mil, 6905mil) (InComponentClass('ProximityDetector'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDESWCKHDETIEALY3FQV0TXC10MHI4DEVBDVIWBDJC0IJRMEPUEZ5N">Rule</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5D0OWGUHQPNYEK0TSSGM3YYVHE4OX5EU4VV3X1BPEXB30LDPSBQM">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTOMGSHPVTD4OGH3W1FGI1GHCAKVWV0JURDVVNDCUNAJPNLCVK10N">Silk primitive without silk layer</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWKQ4A3O4PK3EMORGSJELQT2YRMEQZUN4FYDLGMIPDOQ5DVQFFYM">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID1ODWYBACXBFTBST3TQDVYWNWXMCESTQ2O0KDKSN54SYINLQGJ25F">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">41</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDREJVOQ2Y0VV3O2YTJVOGXZGCMDNFJLBWUOBNPCEYTD2OZEPKGBDD">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDRAVC2A2PPJQ1J5KQZDXVX5IYOPOX1VHAGABS1GKUYRAKECCKBRUH">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDHPD52I2UHWSTCJUK13WM2HEQTISDG33ZKJ04XOOTOH4ALMEOFM4C">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTZTMPZ3JH1BMG1BYQ5HYCC0NFZZP2OIZRFXUYIFDGX151O5TFLD">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGHHTNIZXARCSMPYTVM0L3SGLYJAAFASIGHZUDNL2HZVAZLCFI35M">Width Constraint (Min=20mil) (Max=20mil) (Preferred=20mil) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3JCUDCHAJTIAMIPXWYIZIXVCVDP0BPKYLIAFZVICRWV0CEB3R3K">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFAAFPYZTGLXIGWER2KKDBQD4AOAPY3B0N5YWTJLGVSHUS3EVWD4P">Clearance Constraint (Gap=20mil) (All),(All)</a></td>
+<td class="column2">8</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDMJWTPZY1OFCSMQTDJCPTAUQC3OB34NQEZD2DUJCCRVFP0V2QSK0J">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDL1QH1LJB2HUQCQLHTC3OTRMCUOCVUIYEPU2Q32H2YEI41JGAVIGJ">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">59</td>
+</tr>
+</table><br><hr><a name="ID1ODWYBACXBFTBST3TQDVYWNWXMCESTQ2O0KDKSN54SYINLQGJ25F"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2676.945mil|Location2.X=2803.055mil|Location1.Y=2681.945mil|Location2.Y=2808.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2676.945mil|Location2.X=2803.055mil|Location1.Y=2681.945mil|Location2.Y=2808.055mil|Absolute=True">Pad Detector-1(1740mil,1745mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2668.528mil|Location2.X=2811.472mil|Location1.Y=2673.528mil|Location2.Y=2816.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2668.528mil|Location2.X=2811.472mil|Location1.Y=2673.528mil|Location2.Y=2816.472mil|Absolute=True">Arc (1740mil,1745mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2072.166mil|Location2.X=2076.102mil|Location1.Y=1540.197mil|Location2.Y=1689.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2072.166mil|Location2.X=2076.102mil|Location1.Y=1540.197mil|Location2.Y=1689.803mil|Absolute=True">Track (1074.134mil,542.166mil)(1074.134mil,687.834mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-1(1057.402mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1685.866mil|Location2.Y=1689.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1685.866mil|Location2.Y=1689.803mil|Absolute=True">Track (961.142mil,687.834mil)(1088.898mil,687.834mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-1(1057.402mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1685.866mil|Location2.Y=1689.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1685.866mil|Location2.Y=1689.803mil|Absolute=True">Track (961.142mil,687.834mil)(1088.898mil,687.834mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-2(1020mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=1963.111mil|Location1.Y=1540.197mil|Location2.Y=1689.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=1963.111mil|Location1.Y=1540.197mil|Location2.Y=1689.803mil|Absolute=True">Track (961.142mil,542.166mil)(961.142mil,687.834mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-3(982.598mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1685.866mil|Location2.Y=1689.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1685.866mil|Location2.Y=1689.803mil|Absolute=True">Track (961.142mil,687.834mil)(1088.898mil,687.834mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-3(982.598mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=1963.111mil|Location1.Y=1540.197mil|Location2.Y=1689.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=1963.111mil|Location1.Y=1540.197mil|Location2.Y=1689.803mil|Absolute=True">Track (961.142mil,542.166mil)(961.142mil,687.834mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-4(982.598mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1540.197mil|Location2.Y=1544.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1540.197mil|Location2.Y=1544.134mil|Absolute=True">Track (961.142mil,542.166mil)(1088.898mil,542.166mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-4(982.598mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1540.197mil|Location2.Y=1544.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1540.197mil|Location2.Y=1544.134mil|Absolute=True">Track (961.142mil,542.166mil)(1088.898mil,542.166mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-5(1020mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2072.166mil|Location2.X=2076.102mil|Location1.Y=1540.197mil|Location2.Y=1689.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2072.166mil|Location2.X=2076.102mil|Location1.Y=1540.197mil|Location2.Y=1689.803mil|Absolute=True">Track (1074.134mil,542.166mil)(1074.134mil,687.834mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-6(1057.402mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1540.197mil|Location2.Y=1544.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1959.174mil|Location2.X=2090.867mil|Location1.Y=1540.197mil|Location2.Y=1544.134mil|Absolute=True">Track (961.142mil,542.166mil)(1088.898mil,542.166mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-6(1057.402mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2270.552mil|Location2.X=2272.52mil|Location1.Y=1469.056mil|Location2.Y=1600.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2270.552mil|Location2.X=2272.52mil|Location1.Y=1469.056mil|Location2.Y=1600.944mil|Absolute=True">Track (1271.536mil,470.04mil)(1271.536mil,599.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1542.812mil|Location2.Y=1598.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1542.812mil|Location2.Y=1598.056mil|Absolute=True">Pad R3-1(1305mil,570.434mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2337.48mil|Location2.X=2339.448mil|Location1.Y=1469.056mil|Location2.Y=1600.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2337.48mil|Location2.X=2339.448mil|Location1.Y=1469.056mil|Location2.Y=1600.944mil|Absolute=True">Track (1338.464mil,470.04mil)(1338.464mil,599.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1542.812mil|Location2.Y=1598.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1542.812mil|Location2.Y=1598.056mil|Absolute=True">Pad R3-1(1305mil,570.434mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2270.552mil|Location2.X=2339.448mil|Location1.Y=1598.976mil|Location2.Y=1600.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2270.552mil|Location2.X=2339.448mil|Location1.Y=1598.976mil|Location2.Y=1600.944mil|Absolute=True">Track (1271.536mil,599.96mil)(1338.464mil,599.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1542.812mil|Location2.Y=1598.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1542.812mil|Location2.Y=1598.056mil|Absolute=True">Pad R3-1(1305mil,570.434mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2270.552mil|Location2.X=2272.52mil|Location1.Y=1469.056mil|Location2.Y=1600.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2270.552mil|Location2.X=2272.52mil|Location1.Y=1469.056mil|Location2.Y=1600.944mil|Absolute=True">Track (1271.536mil,470.04mil)(1271.536mil,599.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1471.944mil|Location2.Y=1527.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1471.944mil|Location2.Y=1527.188mil|Absolute=True">Pad R3-2(1305mil,499.566mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2337.48mil|Location2.X=2339.448mil|Location1.Y=1469.056mil|Location2.Y=1600.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2337.48mil|Location2.X=2339.448mil|Location1.Y=1469.056mil|Location2.Y=1600.944mil|Absolute=True">Track (1338.464mil,470.04mil)(1338.464mil,599.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1471.944mil|Location2.Y=1527.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1471.944mil|Location2.Y=1527.188mil|Absolute=True">Pad R3-2(1305mil,499.566mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2270.552mil|Location2.X=2339.448mil|Location1.Y=1469.056mil|Location2.Y=1471.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2270.552mil|Location2.X=2339.448mil|Location1.Y=1469.056mil|Location2.Y=1471.024mil|Absolute=True">Track (1271.536mil,470.04mil)(1338.464mil,470.04mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1471.944mil|Location2.Y=1527.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2273.441mil|Location2.X=2336.559mil|Location1.Y=1471.944mil|Location2.Y=1527.188mil|Absolute=True">Pad R3-2(1305mil,499.566mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2308.976mil|Location2.X=2310.944mil|Location1.Y=1760.552mil|Location2.Y=1829.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2308.976mil|Location2.X=2310.944mil|Location1.Y=1760.552mil|Location2.Y=1829.448mil|Absolute=True">Track (1309.96mil,761.536mil)(1309.96mil,828.464mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2252.812mil|Location2.X=2308.056mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2252.812mil|Location2.X=2308.056mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True">Pad R1-1(1280.434mil,795mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2310.944mil|Location1.Y=1760.552mil|Location2.Y=1762.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2310.944mil|Location1.Y=1760.552mil|Location2.Y=1762.52mil|Absolute=True">Track (1180.04mil,761.536mil)(1309.96mil,761.536mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2252.812mil|Location2.X=2308.056mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2252.812mil|Location2.X=2308.056mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True">Pad R1-1(1280.434mil,795mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2310.944mil|Location1.Y=1827.48mil|Location2.Y=1829.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2310.944mil|Location1.Y=1827.48mil|Location2.Y=1829.448mil|Absolute=True">Track (1180.04mil,828.464mil)(1309.96mil,828.464mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2252.812mil|Location2.X=2308.056mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2252.812mil|Location2.X=2308.056mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True">Pad R1-1(1280.434mil,795mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2181.024mil|Location1.Y=1760.552mil|Location2.Y=1829.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2181.024mil|Location1.Y=1760.552mil|Location2.Y=1829.448mil|Absolute=True">Track (1180.04mil,761.536mil)(1180.04mil,828.464mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.944mil|Location2.X=2237.188mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.944mil|Location2.X=2237.188mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True">Pad R1-2(1209.566mil,795mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2310.944mil|Location1.Y=1760.552mil|Location2.Y=1762.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2310.944mil|Location1.Y=1760.552mil|Location2.Y=1762.52mil|Absolute=True">Track (1180.04mil,761.536mil)(1309.96mil,761.536mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.944mil|Location2.X=2237.188mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.944mil|Location2.X=2237.188mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True">Pad R1-2(1209.566mil,795mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2310.944mil|Location1.Y=1827.48mil|Location2.Y=1829.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2179.056mil|Location2.X=2310.944mil|Location1.Y=1827.48mil|Location2.Y=1829.448mil|Absolute=True">Track (1180.04mil,828.464mil)(1309.96mil,828.464mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.944mil|Location2.X=2237.188mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2181.944mil|Location2.X=2237.188mil|Location1.Y=1763.441mil|Location2.Y=1826.559mil|Absolute=True">Pad R1-2(1209.566mil,795mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1984.764mil|Location2.X=1986.732mil|Location1.Y=1286.182mil|Location2.Y=1433.424mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1984.764mil|Location2.X=1986.732mil|Location1.Y=1286.182mil|Location2.Y=1433.424mil|Absolute=True">Track (985.748mil,287.166mil)(985.748mil,432.44mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1367.811mil|Location2.Y=1430.929mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1367.811mil|Location2.Y=1430.929mil|Absolute=True">Pad C1-2(1020mil,399.37mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2054.056mil|Location2.X=2056.024mil|Location1.Y=1286.182mil|Location2.Y=1433.424mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2054.056mil|Location2.X=2056.024mil|Location1.Y=1286.182mil|Location2.Y=1433.424mil|Absolute=True">Track (1055.04mil,287.166mil)(1055.04mil,432.44mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1367.811mil|Location2.Y=1430.929mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1367.811mil|Location2.Y=1430.929mil|Absolute=True">Pad C1-2(1020mil,399.37mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1984.764mil|Location2.X=2056.024mil|Location1.Y=1431.456mil|Location2.Y=1433.424mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1984.764mil|Location2.X=2056.024mil|Location1.Y=1431.456mil|Location2.Y=1433.424mil|Absolute=True">Track (985.748mil,432.44mil)(1055.04mil,432.44mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1367.811mil|Location2.Y=1430.929mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1367.811mil|Location2.Y=1430.929mil|Absolute=True">Pad C1-2(1020mil,399.37mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1984.764mil|Location2.X=1986.732mil|Location1.Y=1286.182mil|Location2.Y=1433.424mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1984.764mil|Location2.X=1986.732mil|Location1.Y=1286.182mil|Location2.Y=1433.424mil|Absolute=True">Track (985.748mil,287.166mil)(985.748mil,432.44mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1289.071mil|Location2.Y=1352.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1289.071mil|Location2.Y=1352.189mil|Absolute=True">Pad C1-1(1020mil,320.63mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2054.056mil|Location2.X=2056.024mil|Location1.Y=1286.182mil|Location2.Y=1433.424mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2054.056mil|Location2.X=2056.024mil|Location1.Y=1286.182mil|Location2.Y=1433.424mil|Absolute=True">Track (1055.04mil,287.166mil)(1055.04mil,432.44mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1289.071mil|Location2.Y=1352.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1289.071mil|Location2.Y=1352.189mil|Absolute=True">Pad C1-1(1020mil,320.63mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1984.764mil|Location2.X=2056.024mil|Location1.Y=1286.182mil|Location2.Y=1288.15mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1984.764mil|Location2.X=2056.024mil|Location1.Y=1286.182mil|Location2.Y=1288.15mil|Absolute=True">Track (985.748mil,287.166mil)(1055.04mil,287.166mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1289.071mil|Location2.Y=1352.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1986.473mil|Location2.X=2053.528mil|Location1.Y=1289.071mil|Location2.Y=1352.189mil|Absolute=True">Pad C1-1(1020mil,320.63mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1666.024mil|Location1.Y=1820.552mil|Location2.Y=1889.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1666.024mil|Location1.Y=1820.552mil|Location2.Y=1889.448mil|Absolute=True">Track (665.04mil,821.536mil)(665.04mil,888.464mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1666.946mil|Location2.X=1722.19mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1666.946mil|Location2.X=1722.19mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True">Pad R2-1(694.568mil,855mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1795.944mil|Location1.Y=1820.552mil|Location2.Y=1822.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1795.944mil|Location1.Y=1820.552mil|Location2.Y=1822.52mil|Absolute=True">Track (665.04mil,821.536mil)(794.96mil,821.536mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1666.946mil|Location2.X=1722.19mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1666.946mil|Location2.X=1722.19mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True">Pad R2-1(694.568mil,855mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1795.944mil|Location1.Y=1887.48mil|Location2.Y=1889.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1795.944mil|Location1.Y=1887.48mil|Location2.Y=1889.448mil|Absolute=True">Track (665.04mil,888.464mil)(794.96mil,888.464mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1666.946mil|Location2.X=1722.19mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1666.946mil|Location2.X=1722.19mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True">Pad R2-1(694.568mil,855mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1793.976mil|Location2.X=1795.944mil|Location1.Y=1820.552mil|Location2.Y=1889.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1793.976mil|Location2.X=1795.944mil|Location1.Y=1820.552mil|Location2.Y=1889.448mil|Absolute=True">Track (794.96mil,821.536mil)(794.96mil,888.464mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1737.812mil|Location2.X=1793.056mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1737.812mil|Location2.X=1793.056mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True">Pad R2-2(765.434mil,855mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1795.944mil|Location1.Y=1820.552mil|Location2.Y=1822.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1795.944mil|Location1.Y=1820.552mil|Location2.Y=1822.52mil|Absolute=True">Track (665.04mil,821.536mil)(794.96mil,821.536mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1737.812mil|Location2.X=1793.056mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1737.812mil|Location2.X=1793.056mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True">Pad R2-2(765.434mil,855mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1795.944mil|Location1.Y=1887.48mil|Location2.Y=1889.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.056mil|Location2.X=1795.944mil|Location1.Y=1887.48mil|Location2.Y=1889.448mil|Absolute=True">Track (665.04mil,888.464mil)(794.96mil,888.464mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1737.812mil|Location2.X=1793.056mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1737.812mil|Location2.X=1793.056mil|Location1.Y=1823.441mil|Location2.Y=1886.559mil|Absolute=True">Pad R2-2(765.434mil,855mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1730.552mil|Location2.X=1732.52mil|Location1.Y=1369.056mil|Location2.Y=1500.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1730.552mil|Location2.X=1732.52mil|Location1.Y=1369.056mil|Location2.Y=1500.944mil|Absolute=True">Track (731.536mil,370.04mil)(731.536mil,499.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1442.812mil|Location2.Y=1498.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1442.812mil|Location2.Y=1498.056mil|Absolute=True">Pad R4-1(765mil,470.434mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1797.48mil|Location2.X=1799.448mil|Location1.Y=1369.056mil|Location2.Y=1500.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1797.48mil|Location2.X=1799.448mil|Location1.Y=1369.056mil|Location2.Y=1500.944mil|Absolute=True">Track (798.464mil,370.04mil)(798.464mil,499.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1442.812mil|Location2.Y=1498.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1442.812mil|Location2.Y=1498.056mil|Absolute=True">Pad R4-1(765mil,470.434mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1730.552mil|Location2.X=1799.448mil|Location1.Y=1498.976mil|Location2.Y=1500.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1730.552mil|Location2.X=1799.448mil|Location1.Y=1498.976mil|Location2.Y=1500.944mil|Absolute=True">Track (731.536mil,499.96mil)(798.464mil,499.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1442.812mil|Location2.Y=1498.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1442.812mil|Location2.Y=1498.056mil|Absolute=True">Pad R4-1(765mil,470.434mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1730.552mil|Location2.X=1732.52mil|Location1.Y=1369.056mil|Location2.Y=1500.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1730.552mil|Location2.X=1732.52mil|Location1.Y=1369.056mil|Location2.Y=1500.944mil|Absolute=True">Track (731.536mil,370.04mil)(731.536mil,499.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1371.944mil|Location2.Y=1427.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1371.944mil|Location2.Y=1427.188mil|Absolute=True">Pad R4-2(765mil,399.566mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1797.48mil|Location2.X=1799.448mil|Location1.Y=1369.056mil|Location2.Y=1500.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1797.48mil|Location2.X=1799.448mil|Location1.Y=1369.056mil|Location2.Y=1500.944mil|Absolute=True">Track (798.464mil,370.04mil)(798.464mil,499.96mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1371.944mil|Location2.Y=1427.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1371.944mil|Location2.Y=1427.188mil|Absolute=True">Pad R4-2(765mil,399.566mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1730.552mil|Location2.X=1799.448mil|Location1.Y=1369.056mil|Location2.Y=1371.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1730.552mil|Location2.X=1799.448mil|Location1.Y=1369.056mil|Location2.Y=1371.024mil|Absolute=True">Track (731.536mil,370.04mil)(798.464mil,370.04mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1371.944mil|Location2.Y=1427.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1796.559mil|Location1.Y=1371.944mil|Location2.Y=1427.188mil|Absolute=True">Pad R4-2(765mil,399.566mil)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDREJVOQ2Y0VV3O2YTJVOGXZGCMDNFJLBWUOBNPCEYTD2OZEPKGBDD"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-2(1020mil,662.244mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-1(1057.402mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-3(982.598mil,662.244mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-2(1020mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-5(1020mil,567.756mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-4(982.598mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-6(1057.402mil,567.756mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-5(1020mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDGHHTNIZXARCSMPYTVM0L3SGLYJAAFASIGHZUDNL2HZVAZLCFI35M"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Width Constraint (Min=20mil) (Max=20mil) (Preferred=20mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=991.703mil|Location2.X=1010.697mil|Location1.Y=3948.5mil|Location2.Y=4015.687mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=991.703mil|Location2.X=1010.697mil|Location1.Y=3948.5mil|Location2.Y=4015.687mil|Absolute=True">Width Constraint: Track (0mil,0mil)(0mil,5910mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3946mil|Location2.X=4013.187mil|Location1.Y=6899.303mil|Location2.Y=6918.297mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3946mil|Location2.X=4013.187mil|Location1.Y=6899.303mil|Location2.Y=6918.297mil|Absolute=True">Width Constraint: Track (0mil,5910mil)(5905mil,5910mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6896.703mil|Location2.X=6915.697mil|Location1.Y=3946mil|Location2.Y=4013.187mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6896.703mil|Location2.X=6915.697mil|Location1.Y=3946mil|Location2.Y=4013.187mil|Absolute=True">Width Constraint: Track (5905mil,-5mil)(5905mil,5910mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3946mil|Location2.X=4013.187mil|Location1.Y=984.303mil|Location2.Y=1003.297mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3946mil|Location2.X=4013.187mil|Location1.Y=984.303mil|Location2.Y=1003.297mil|Absolute=True">Width Constraint: Track (0mil,-5mil)(5905mil,-5mil)  Top Layer</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDFAAFPYZTGLXIGWER2KKDBQD4AOAPY3B0N5YWTJLGVSHUS3EVWD4P"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Clearance Constraint (Gap=20mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010mil|Location2.X=2030mil|Location1.Y=1652.244mil|Location2.Y=1845mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010mil|Location2.X=2030mil|Location1.Y=1652.244mil|Location2.Y=1845mil|Absolute=True">Track (1020mil,662.244mil)(1020mil,835mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-1(1057.402mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-2(1020mil,662.244mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-1(1057.402mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-3(982.598mil,662.244mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-2(1020mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010mil|Location2.X=2030mil|Location1.Y=1652.244mil|Location2.Y=1845mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010mil|Location2.X=2030mil|Location1.Y=1652.244mil|Location2.Y=1845mil|Absolute=True">Track (1020mil,662.244mil)(1020mil,835mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1636.591mil|Location2.Y=1687.898mil|Absolute=True">Pad M1-3(982.598mil,662.244mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-5(1020mil,567.756mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-4(982.598mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010mil|Location2.X=2030mil|Location1.Y=1389.37mil|Location2.Y=1577.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010mil|Location2.X=2030mil|Location1.Y=1389.37mil|Location2.Y=1577.756mil|Absolute=True">Track (1020mil,399.37mil)(1020mil,567.756mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.803mil|Location2.X=1999.393mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-4(982.598mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-6(1057.402mil,567.756mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2003.205mil|Location2.X=2036.795mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-5(1020mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010mil|Location2.X=2030mil|Location1.Y=1389.37mil|Location2.Y=1577.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010mil|Location2.X=2030mil|Location1.Y=1389.37mil|Location2.Y=1577.756mil|Absolute=True">Track (1020mil,399.37mil)(1020mil,567.756mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2040.607mil|Location2.X=2074.197mil|Location1.Y=1542.102mil|Location2.Y=1593.409mil|Absolute=True">Pad M1-6(1057.402mil,567.756mil)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDMJWTPZY1OFCSMQTDJCPTAUQC3OB34NQEZD2DUJCCRVFP0V2QSK0J"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1686.473mil|Location2.X=1796.559mil|Location1.Y=1126.473mil|Location2.Y=1427.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1686.473mil|Location2.X=1796.559mil|Location1.Y=1126.473mil|Location2.Y=1427.188mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad J1-1 (720,160mil) And Pad R4-2 (765,399.566mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1853.527mil|Location1.Y=1126.473mil|Location2.Y=1498.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Matthias\Documents\BDASmartBoard\PCB\ProximityDetector\ProximityDetector_v1\ProximityDetector.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.441mil|Location2.X=1853.527mil|Location1.Y=1126.473mil|Location2.Y=1498.056mil|Absolute=True">Un-Routed Net Constraint: Net MTCH101_OUT Between Pad R4-1 (765,470.434mil) And Pad J1-2 (820,160mil)</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>
