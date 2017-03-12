@@ -1,3 +1,3 @@
 # BDASmartBoard
 
-CODE BDA SmartBoard HS17
+SourceCode & PCB BDA SmartBoard HS17
