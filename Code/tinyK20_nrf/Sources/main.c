@@ -34,6 +34,9 @@
 #include "UTIL1.h"
 #include "XF1.h"
 #include "MCUC1.h"
+#include "AS2.h"
+#include "ASerialLdd2.h"
+#include "RTT1.h"
 #include "RF1.h"
 #include "CE1.h"
 #include "BitIoLdd1.h"
@@ -49,7 +52,6 @@
 #include "LED1.h"
 #include "LEDpin1.h"
 #include "BitIoLdd3.h"
-#include "RTT1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
