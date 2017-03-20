@@ -1,7 +1,7 @@
 /* ###################################################################
 **     Filename    : main.c
 **     Project     : nRF24L01p
-**     Processor   : MK20DX128VLH5
+**     Processor   : MK20DX128VFT5
 **     Version     : Driver 01.01
 **     Compiler    : GNU C Compiler
 **     Date/Time   : 2017-03-20, 14:50, # CodeGen: 0
@@ -41,8 +41,6 @@
 #include "BitIoLdd1.h"
 #include "CSN1.h"
 #include "BitIoLdd2.h"
-#include "IRQ1.h"
-#include "ExtIntLdd1.h"
 #include "WAIT1.h"
 #include "LED1.h"
 #include "LEDpin1.h"
@@ -53,6 +51,7 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include "RNet_App.h"
 
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)

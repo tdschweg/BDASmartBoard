@@ -4,13 +4,13 @@
 /*##                                   */
 /*##     Filename  : ProcessorExpert.ld */
 /*##                                   */
-/*##     Project   : nRF24L01p         */
+/*##     Project   : tinyK20_nrf       */
 /*##                                   */
 /*##     Processor : MK20DX128VFT5     */
 /*##                                   */
 /*##     Compiler  : GNU C Compiler    */
 /*##                                   */
-/*##     Date/Time : 2017-03-20, 17:24, # CodeGen: 6 */
+/*##     Date/Time : 2016-02-25, 18:34, # CodeGen: 1 */
 /*##                                   */
 /*##     Abstract  :                   */
 /*##                                   */

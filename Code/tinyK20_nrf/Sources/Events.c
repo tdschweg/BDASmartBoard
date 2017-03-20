@@ -1,11 +1,11 @@
 /* ###################################################################
 **     Filename    : Events.c
-**     Project     : nRF24L01p
+**     Project     : tinyK20_nrf
 **     Processor   : MK20DX128VFT5
 **     Component   : Events
 **     Version     : Driver 01.00
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2017-03-20, 14:50, # CodeGen: 0
+**     Date/Time   : 2016-02-25, 18:31, # CodeGen: 0
 **     Abstract    :
 **         This is user's event module.
 **         Put your event handler code here.
@@ -50,101 +50,6 @@ extern "C" {
 */
 /* ===================================================================*/
 void Cpu_OnNMIINT(void)
-{
-  /* Write your code here ... */
-}
-
-/*
-** ===================================================================
-**     Event       :  SM1_OnRxChar (module Events)
-**
-**     Component   :  SM1 [SynchroMaster]
-**     Description :
-**         This event is called after a correct character is received.
-**         The event is available only when the <Interrupt
-**         service/event> property is enabled.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void SM1_OnRxChar(void)
-{
-  /* Write your code here ... */
-}
-
-/*
-** ===================================================================
-**     Event       :  SM1_OnTxChar (module Events)
-**
-**     Component   :  SM1 [SynchroMaster]
-**     Description :
-**         This event is called after a character is transmitted.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void SM1_OnTxChar(void)
-{
-  /* Write your code here ... */
-}
-
-/*
-** ===================================================================
-**     Event       :  SM1_OnFullRxBuf (module Events)
-**
-**     Component   :  SM1 [SynchroMaster]
-**     Description :
-**         This event is called when the input buffer is full, i.e.
-**         after reception of the last character that was successfully
-**         placed into input buffer.
-**         This event is available only when the <Interrupt
-**         service/event> property is enabled and the <Input buffer
-**         size> property is set to non-zero value.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void SM1_OnFullRxBuf(void)
-{
-  /* Write your code here ... */
-}
-
-/*
-** ===================================================================
-**     Event       :  SM1_OnFreeTxBuf (module Events)
-**
-**     Component   :  SM1 [SynchroMaster]
-**     Description :
-**         This event is called after the last character in output
-**         buffer is transmitted.
-**         This event is available only when the <Interrupt
-**         service/event> property is enabled and the <Output buffer
-**         size> property is set to non-zero value.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void SM1_OnFreeTxBuf(void)
-{
-  /* Write your code here ... */
-}
-
-/*
-** ===================================================================
-**     Event       :  SM1_OnError (module Events)
-**
-**     Component   :  SM1 [SynchroMaster]
-**     Description :
-**         This event is called when a channel error (not the error
-**         returned by a given method) occurs. The errors can be read
-**         using <GetError> method.
-**         The event is available only when the <Interrupt
-**         service/event> property is enabled.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void SM1_OnError(void)
 {
   /* Write your code here ... */
 }
@@ -236,6 +141,29 @@ void FRTOS1_vApplicationMallocFailedHook(void)
   taskDISABLE_INTERRUPTS();
   /* Write your code here ... */
   for(;;) {}
+}
+
+/*
+** ===================================================================
+**     Event       :  SM1_OnRxCharExt (module Events)
+**
+**     Component   :  SM1 [SynchroMaster]
+**     Description :
+**         This event is called after a correct character is received.
+**         The parameter of the event contains the last received
+**         character. If an input buffer is used, the character is also
+**         inserted into the buffer.
+**         The event is available only when the <Interrupt
+**         service/event> property is enabled.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         Chr             - The last received character
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SM1_OnRxCharExt(SM1_TComData Chr)
+{
+  /* Write your code here ... */
 }
 
 /* END Events */
