@@ -17,6 +17,7 @@
 #include "RApp.h"
 #include "FRTOS1.h"
 #include "RPHY.h"
+#include "LED1.h"
 #if RNET_CONFIG_REMOTE_STDIO
   #include "RStdIO.h"
 #endif
@@ -64,8 +65,13 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
 #endif
       UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"\r\n");
       CLS1_SendStr(buf, io->stdOut);
-#endif /* PL_HAS_SHELL */      
+#endif /* PL_HAS_SHELL */
       return ERR_OK;
+
+    case RAPP_MSG_TYPE_PING:
+    	LED1_Neg();
+    return ERR_OK;
+
     default:
       break;
   } /* switch */

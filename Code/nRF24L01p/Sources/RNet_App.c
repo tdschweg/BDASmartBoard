@@ -7,14 +7,17 @@
  * This module implements the application part of the program.
  */
 
+
 #include "RNet_App.h"
+#include "RNetConf.h"
+#include "Radio.h"
 #include "RStack.h"
 #include "RApp.h"
 #include "FRTOS1.h"
 #include "RPHY.h"
-#include "Radio.h"
 #include "LED1.h"
 
+static RNWK_ShortAddrType APP_dstAddr = RNWK_ADDR_BROADCAST; /* destination node address */
 
 typedef enum {
   RNETA_INITIAL, /* initialization state */
@@ -119,7 +122,7 @@ void RNETA_Init(void) {
         "RNet", /* task name for kernel awareness debugging */
         configMINIMAL_STACK_SIZE, /* task stack size */
         (void*)NULL, /* optional task startup argument */
-        tskIDLE_PRIORITY,  /* initial priority */
+        tskIDLE_PRIORITY+3,  /* initial priority */
         (xTaskHandle*)NULL /* optional task handle to create */
       ) != pdPASS) {
     /*lint -e527 */

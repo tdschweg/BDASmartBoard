@@ -21,6 +21,7 @@ typedef enum {
   RAPP_MSG_TYPE_DATA = 0x04,
   RAPP_MSG_TYPE_JOYSTICK_XY = 0x05,  /* Joystick xy message: data is x,y (two signed bytes) from -128...127 */
   RAPP_MSG_TYPE_JOYSTICK_BTN = 0x54, /* Joystick button message (data is one byte: 'A', 'B', ... 'F' and 'K') */
+  RAPP_MSG_TYPE_PING = 0x55,
 } RAPP_MSG_Type;
 
 #if PL_HAS_RADIO

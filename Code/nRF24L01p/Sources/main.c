@@ -45,6 +45,8 @@
 #include "LED1.h"
 #include "LEDpin1.h"
 #include "BitIoLdd3.h"
+#include "XF1.h"
+#include "CS1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"

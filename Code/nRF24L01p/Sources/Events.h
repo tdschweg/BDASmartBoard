@@ -48,6 +48,8 @@
 #include "LED1.h"
 #include "LEDpin1.h"
 #include "BitIoLdd3.h"
+#include "XF1.h"
+#include "CS1.h"
 
 #ifdef __cplusplus
 extern "C" {
