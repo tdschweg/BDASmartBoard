@@ -69,7 +69,11 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
       return ERR_OK;
 
     case RAPP_MSG_TYPE_PING:
-    	LED1_Neg();
+#if PL_CONFIG_IS_SENDER==0
+        LED1_On(); /* blue LED blink */
+        FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
+        LED1_Off();
+#endif
     return ERR_OK;
 
     default:
@@ -142,12 +146,15 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 	appState = RNETA_NONE;
 	for(;;) {
 		Process(); /* process radio in/out queues */
+#if PL_CONFIG_IS_SENDER
 		cntr++;
     	if (cntr==100) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
     		RAPP_SendPayloadDataBlock(&msgCntr, sizeof(msgCntr), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_NONE);
     		msgCntr++;
     		cntr = 0;
+    		LED1_Neg();
     	}
+#endif
     FRTOS1_vTaskDelay(10/portTICK_PERIOD_MS);
 	}
 }
@@ -164,9 +171,9 @@ void RNETA_Init(void) {
   if (FRTOS1_xTaskCreate(
         RadioTask,  /* pointer to the task */
         "Radio", /* task name for kernel awareness debugging */
-        configMINIMAL_STACK_SIZE+100, /* task stack size */
+        configMINIMAL_STACK_SIZE+200, /* task stack size */
         (void*)NULL, /* optional task startup argument */
-        tskIDLE_PRIORITY+3,  /* initial priority */
+        tskIDLE_PRIORITY+2,  /* initial priority */
         (xTaskHandle*)NULL /* optional task handle to create */
       ) != pdPASS) {
     /*lint -e527 */

@@ -29,7 +29,9 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 #if RNET1_PARSE_COMMAND_ENABLED
   RNET1_ParseCommand,
 #endif
+#if PL_CONFIG_HAS_SHELL
   RNETA_ParseCommand,
+#endif
 #endif
   NULL /* sentinel */
 };
@@ -65,7 +67,7 @@ static void ShellTask(void *pvParameters) {
 }
 
 void SHELL_Init(void) {
-  if (FRTOS1_xTaskCreate(ShellTask, "Shell", configMINIMAL_STACK_SIZE+300, NULL, tskIDLE_PRIORITY+2, NULL) != pdPASS) {
+  if (FRTOS1_xTaskCreate(ShellTask, "Shell", configMINIMAL_STACK_SIZE+300, NULL, tskIDLE_PRIORITY+1, NULL) != pdPASS) {
     for(;;){} /* error */
   }
 }

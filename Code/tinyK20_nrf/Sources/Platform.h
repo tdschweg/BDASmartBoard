@@ -10,6 +10,9 @@
 
 #include <stdint.h>
 
+#define PL_CONFIG_IS_SENDER		  0
+
+#define PL_CONFIG_HAS_DUMMY_LED   0
 #define PL_CONFIG_HAS_SEGGER_RTT  0  /* if using extra Segger RTT beside of default I/O */
 #define PL_CONFIG_HAS_RADIO       1
 #define PL_CONFIG_HAS_SHELL       1

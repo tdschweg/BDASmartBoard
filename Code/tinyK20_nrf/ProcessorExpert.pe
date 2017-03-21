@@ -3,7 +3,7 @@
   <Header>
     <Name>tinyK20_nrf</Name>
     <SavedBy>Erich Styger</SavedBy>
-    <ModificationStamp>25</ModificationStamp>
+    <ModificationStamp>29</ModificationStamp>
     <Date>2016-02-25</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1550-0615</PEversion>
@@ -6583,7 +6583,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>4000</Value>
+        <Value>6000</Value>
         <Base>DEC</Base>
       </ItemState>
       <ItemState>
@@ -6631,8 +6631,8 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>false</Value>
-        <Expanded>false</Expanded>
+        <Value>true</Value>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>HeapSectionName</ItemSymbol>

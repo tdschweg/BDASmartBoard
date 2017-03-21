@@ -26,9 +26,11 @@ void APP_Run(void) {
 #if PL_CONFIG_HAS_RADIO
   RNETA_Init();
 #endif
+#if PL_CONFIG_HAS_DUMMY_LED
   if (xTaskCreate(led_task, "Led", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {
     for(;;){} /* error! probably out of memory */
   }
+#endif
   vTaskStartScheduler();
 }
 
