@@ -3,7 +3,7 @@
   <Header>
     <Name>nRF24L01p</Name>
     <SavedBy>Matthias</SavedBy>
-    <ModificationStamp>5</ModificationStamp>
+    <ModificationStamp>6</ModificationStamp>
     <Date>2017-03-20</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1550-0615</PEversion>
@@ -6301,7 +6301,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>20000</Value>
+        <Value>4000</Value>
         <Base>DEC</Base>
       </ItemState>
       <ItemState>
