@@ -3,7 +3,7 @@
   <Header>
     <Name>nRF24L01p</Name>
     <SavedBy>Matthias</SavedBy>
-    <ModificationStamp>8</ModificationStamp>
+    <ModificationStamp>9</ModificationStamp>
     <Date>2017-03-20</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1550-0615</PEversion>
@@ -11659,7 +11659,7 @@
               <ItemSymbol>_Pin</ItemSymbol>
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
-              <Value>PTD0/LLWU_P12/SPI0_PCS0/UART2_RTS_b</Value>
+              <Value>ADC0_SE4b/CMP1_IN0/TSI0_CH15/PTC2/SPI0_PCS2/UART1_CTS_b/FTM0_CH1/I2S0_TX_FS</Value>
               <SharedPrphMode>false</SharedPrphMode>
             </ItemState>
             <ItemState>
@@ -11705,7 +11705,7 @@
                     <ItemSymbol>_Pin</ItemSymbol>
                     <ReadOnly>false</ReadOnly>
                     <UserReadOnly>false</UserReadOnly>
-                    <Value>PTD0/LLWU_P12/SPI0_PCS0/UART2_RTS_b</Value>
+                    <Value>ADC0_SE4b/CMP1_IN0/TSI0_CH15/PTC2/SPI0_PCS2/UART1_CTS_b/FTM0_CH1/I2S0_TX_FS</Value>
                     <SharedPrphMode>false</SharedPrphMode>
                   </ItemState>
                   <ItemState>

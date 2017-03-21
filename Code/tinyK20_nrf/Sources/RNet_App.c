@@ -134,13 +134,22 @@ static void Init(void) {
 }
 
 static portTASK_FUNCTION(RadioTask, pvParameters) {
-  (void)pvParameters; /* not used */
-  Init();
-  appState = RNETA_NONE;
-  for(;;) {
-    Process(); /* process radio in/out queues */
-    FRTOS1_vTaskDelay(5/portTICK_PERIOD_MS);
-  }
+	uint32_t cntr;
+	uint8_t msgCntr;
+
+	(void)pvParameters; /* not used */
+	Init();
+	appState = RNETA_NONE;
+	for(;;) {
+		Process(); /* process radio in/out queues */
+		cntr++;
+    	if (cntr==100) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
+    		RAPP_SendPayloadDataBlock(&msgCntr, sizeof(msgCntr), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_NONE);
+    		msgCntr++;
+    		cntr = 0;
+    	}
+    FRTOS1_vTaskDelay(10/portTICK_PERIOD_MS);
+	}
 }
 
 void RNETA_Deinit(void) {
@@ -170,7 +179,7 @@ void RNETA_Init(void) {
 static uint8_t PrintStatus(const CLS1_StdIOType *io) {
   uint8_t buf[32];
   
-  CLS1_SendStatusStr((unsigned char*)"rapp", (unsigned char*)"\r\n", io->stdOut);
+  CLS1_SendStatusStr((unsigned char*)"radio", (unsigned char*)"\r\n", io->stdOut);
   
   UTIL1_strcpy(buf, sizeof(buf), (unsigned char*)"0x");
 #if RNWK_SHORT_ADDR_SIZE==1

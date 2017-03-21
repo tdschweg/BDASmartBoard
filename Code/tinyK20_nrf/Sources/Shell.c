@@ -9,6 +9,7 @@
 #include "FRTOS1.h"
 #include "Shell.h"
 #include "CLS1.h"
+#include "Radio.h"
 #if PL_CONFIG_HAS_SEGGER_RTT
   #include "RTT1.h"
 #endif
@@ -23,11 +24,12 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 {
   CLS1_ParseCommand,
   FRTOS1_ParseCommand,
+  RADIO_ParseCommand,
 #if PL_CONFIG_HAS_RADIO
 #if RNET1_PARSE_COMMAND_ENABLED
   RNET1_ParseCommand,
 #endif
-  //RNETA_ParseCommand,
+  RNETA_ParseCommand,
 #endif
   NULL /* sentinel */
 };

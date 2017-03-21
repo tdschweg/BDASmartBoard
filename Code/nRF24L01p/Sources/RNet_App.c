@@ -34,9 +34,11 @@ static uint8_t RNETA_HandleRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *
     case RAPP_MSG_TYPE_PING: /* <type><size><data */
       *handled = TRUE;
       /* to be defined: do something with the ping, e.g blink a LED */
+      //Empfänger
       LED1_On(); /* blue LED blink */
       FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
       LED1_Off();
+      //LED1_Neg();
       return ERR_OK;
     default:
       break;
@@ -107,6 +109,8 @@ static portTASK_FUNCTION(RNetTask, pvParameters) {
       cntr = 0;
       //FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
       //LED3_Off(); /* blink blue LED */
+      //Sender
+      //LED1_Neg();
     }
     FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
   } /* for */
