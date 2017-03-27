@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=
+OutputPath=Project Outputs for Keyfinder
 LogFolderPath=
 ManagedProjectGUID=
 
@@ -71,7 +71,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document3]
-DocumentPath=Keyfinder_TinyK20.SchDoc
+DocumentPath=Keyfinder_MCU.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -119,7 +119,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=
+DocumentUniqueId=QQCKLNCN
 
 [Document6]
 DocumentPath=Keyfinder.PcbDoc
@@ -137,6 +137,27 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=FDWSCQIC
+
+[Document7]
+DocumentPath=Keyfinder.PcbLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=CFGVXXGM
+
+[GeneratedDocument1]
+DocumentPath=Project Outputs for Keyfinder\Design Rule Check - Keyfinder.html
+DItemRevisionGUID=
 
 [Configuration1]
 Name=Default Configuration
@@ -185,7 +206,7 @@ SCH_HasExpandLogicalToPhysicalSheets=-1
 SaveSettingsToOutJob=-1
 
 [Generic_EDE]
-OutputDir=
+OutputDir=Project Outputs for Keyfinder
 
 [OutputGroup1]
 Name=Netlist Outputs
