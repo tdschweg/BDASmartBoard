@@ -156,7 +156,7 @@ GenerateClassCluster=0
 DocumentUniqueId=PDCUWXDS
 
 [Document8]
-DocumentPath=MainBoard_TinyK20_RF.SchDoc
+DocumentPath=MainBoard_MCU_RF.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
