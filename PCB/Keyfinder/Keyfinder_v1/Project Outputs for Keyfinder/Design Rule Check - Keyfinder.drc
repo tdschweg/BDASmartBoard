@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\Matthias\Documents\BDASmartBoard\PCB\Keyfinder\Keyfinder_v1\Keyfinder.PcbDoc
-Date     : 28.03.2017
-Time     : 11:53:16
+Date     : 30.03.2017
+Time     : 10:56:54
 
 Processing Rule : Room Keyfinder_MCU (Bounding Region = (975mil, 975mil, 2775mil, 2270mil) (InComponentClass('Keyfinder_MCU'))
 Rule Violations :0
@@ -24,14 +24,14 @@ Processing Rule : Clearance Constraint (Gap=13mil) (All),(All)
                      Pad K1-1(1484.082mil,303.869mil)  Bottom Layer
    Violation between Pad K1-3(1484.082mil,378.673mil)  Bottom Layer and 
                      Pad K1-2(1484.082mil,341.271mil)  Bottom Layer
-   Violation between Track (1119.534mil,137.137mil)(1119.534mil,162.727mil)  Top Layer and 
-                     Track (1054.909mil,188.319mil)(1119.534mil,188.319mil)  Top Layer
-   Violation between Track (1119.534mil,213.909mil)(1119.534mil,263.063mil)  Top Layer and 
-                     Track (1054.909mil,188.319mil)(1119.534mil,188.319mil)  Top Layer
    Violation between Track (1303.119mil,215.405mil)(1420.46mil,215.405mil)  Top Layer and 
                      Track (1249.87mil,189.815mil)(1303.119mil,189.815mil)  Top Layer
    Violation between Track (1303.119mil,164.223mil)(1484.005mil,164.223mil)  Top Layer and 
                      Track (1249.87mil,189.815mil)(1303.119mil,189.815mil)  Top Layer
+   Violation between Track (1119.534mil,137.137mil)(1119.534mil,162.727mil)  Top Layer and 
+                     Track (1054.909mil,188.319mil)(1119.534mil,188.319mil)  Top Layer
+   Violation between Track (1119.534mil,213.909mil)(1119.534mil,263.063mil)  Top Layer and 
+                     Track (1054.909mil,188.319mil)(1119.534mil,188.319mil)  Top Layer
    Violation between Track (1348.965mil,138.633mil)(1413.346mil,74.252mil)  Top Layer and 
                      Track (1303.119mil,164.223mil)(1484.005mil,164.223mil)  Top Layer
    Violation between Track (1303.119mil,138.633mil)(1348.965mil,138.633mil)  Top Layer and 
@@ -50,7 +50,8 @@ Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (
 Rule Violations :0
 
 Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
-Rule Violations :0
+   Violation between Hole Size Constraint (137.795mil > 100mil) : Pad Free-0(130mil,130mil)  Multi-Layer
+Rule Violations :1
 
 Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
 Rule Violations :0
@@ -233,6 +234,22 @@ Processing Rule : Silk To Solder Mask (Clearance=10mil) (IsPad),(All)
                      Pad R5-1(511.76mil,406.271mil)  Top Layer
    Violation between Track (411.366mil,439.735mil)(541.287mil,439.735mil)  Top Overlay and 
                      Pad R5-1(511.76mil,406.271mil)  Top Layer
+   Violation between Track (579.96mil,296.536mil)(579.96mil,363.464mil)  Bottom Overlay and 
+                     Pad R7-2(550.434mil,330mil)  Bottom Layer
+   Violation between Track (450.04mil,296.536mil)(579.96mil,296.536mil)  Bottom Overlay and 
+                     Pad R7-2(550.434mil,330mil)  Bottom Layer
+   Violation between Track (450.196mil,369.134mil)(607.678mil,369.134mil)  Bottom Overlay and 
+                     Pad R7-2(550.434mil,330mil)  Bottom Layer
+   Violation between Track (450.04mil,363.464mil)(579.96mil,363.464mil)  Bottom Overlay and 
+                     Pad R7-2(550.434mil,330mil)  Bottom Layer
+   Violation between Track (450.04mil,296.536mil)(450.04mil,363.464mil)  Bottom Overlay and 
+                     Pad R7-1(479.566mil,330mil)  Bottom Layer
+   Violation between Track (450.04mil,296.536mil)(579.96mil,296.536mil)  Bottom Overlay and 
+                     Pad R7-1(479.566mil,330mil)  Bottom Layer
+   Violation between Track (450.196mil,369.134mil)(607.678mil,369.134mil)  Bottom Overlay and 
+                     Pad R7-1(479.566mil,330mil)  Bottom Layer
+   Violation between Track (450.04mil,363.464mil)(579.96mil,363.464mil)  Bottom Overlay and 
+                     Pad R7-1(479.566mil,330mil)  Bottom Layer
    Violation between Track (1661.535mil,420.039mil)(1661.535mil,549.961mil)  Bottom Overlay and 
                      Pad R1-1(1695mil,520.433mil)  Bottom Layer
    Violation between Track (1728.465mil,420.039mil)(1728.465mil,549.961mil)  Bottom Overlay and 
@@ -263,24 +280,12 @@ Processing Rule : Silk To Solder Mask (Clearance=10mil) (IsPad),(All)
                      Pad K1-5(1578.571mil,303.869mil)  Bottom Layer
    Violation between Track (1458.493mil,283.977mil)(1604.16mil,283.977mil)  Bottom Overlay and 
                      Pad K1-5(1578.571mil,303.869mil)  Bottom Layer
-   Violation between Track (931.287mil,62.807mil)(931.287mil,129.735mil)  Bottom Overlay and 
-                     Pad R7-2(901.76mil,96.271mil)  Bottom Layer
-   Violation between Track (801.366mil,62.807mil)(931.287mil,62.807mil)  Bottom Overlay and 
-                     Pad R7-2(901.76mil,96.271mil)  Bottom Layer
-   Violation between Track (801.366mil,129.735mil)(931.287mil,129.735mil)  Bottom Overlay and 
-                     Pad R7-2(901.76mil,96.271mil)  Bottom Layer
-   Violation between Track (801.366mil,62.807mil)(801.366mil,129.735mil)  Bottom Overlay and 
-                     Pad R7-1(830.894mil,96.271mil)  Bottom Layer
-   Violation between Track (801.366mil,62.807mil)(931.287mil,62.807mil)  Bottom Overlay and 
-                     Pad R7-1(830.894mil,96.271mil)  Bottom Layer
-   Violation between Track (801.366mil,129.735mil)(931.287mil,129.735mil)  Bottom Overlay and 
-                     Pad R7-1(830.894mil,96.271mil)  Bottom Layer
-   Violation between Track (790.461mil,301.075mil)(936.13mil,301.075mil)  Bottom Overlay and 
-                     Pad T3-3(861.327mil,273.515mil)  Bottom Layer
-   Violation between Track (790.461mil,143.593mil)(936.13mil,143.593mil)  Bottom Overlay and 
-                     Pad T3-2(825.893mil,171.153mil)  Bottom Layer
-   Violation between Track (790.461mil,143.593mil)(936.13mil,143.593mil)  Bottom Overlay and 
-                     Pad T3-1(900.697mil,171.153mil)  Bottom Layer
+   Violation between Track (450.196mil,369.134mil)(450.196mil,514.804mil)  Bottom Overlay and 
+                     Pad T2-3(477.756mil,440mil)  Bottom Layer
+   Violation between Track (607.678mil,369.134mil)(607.678mil,514.804mil)  Bottom Overlay and 
+                     Pad T2-2(580.118mil,404.566mil)  Bottom Layer
+   Violation between Track (607.678mil,369.134mil)(607.678mil,514.804mil)  Bottom Overlay and 
+                     Pad T2-1(580.118mil,479.37mil)  Bottom Layer
    Violation between Track (1241.367mil,342.807mil)(1241.367mil,409.735mil)  Bottom Overlay and 
                      Pad R3-2(1270.892mil,376.271mil)  Bottom Layer
    Violation between Track (1241.367mil,342.807mil)(1371.286mil,342.807mil)  Bottom Overlay and 
@@ -317,24 +322,6 @@ Processing Rule : Silk To Solder Mask (Clearance=10mil) (IsPad),(All)
                      Pad R2-1(1695mil,370.434mil)  Bottom Layer
    Violation between Track (1661.536mil,399.96mil)(1728.464mil,399.96mil)  Bottom Overlay and 
                      Pad R2-1(1695mil,370.434mil)  Bottom Layer
-   Violation between Track (956.523mil,70.405mil)(956.523mil,216.075mil)  Bottom Overlay and 
-                     Pad T2-3(984.082mil,141.271mil)  Bottom Layer
-   Violation between Track (1114.005mil,70.405mil)(1114.005mil,216.075mil)  Bottom Overlay and 
-                     Pad T2-2(1086.445mil,105.837mil)  Bottom Layer
-   Violation between Track (1114.005mil,70.405mil)(1114.005mil,216.075mil)  Bottom Overlay and 
-                     Pad T2-1(1086.445mil,180.641mil)  Bottom Layer
-   Violation between Track (761.366mil,317.807mil)(761.366mil,384.735mil)  Bottom Overlay and 
-                     Pad R8-2(790.893mil,351.271mil)  Bottom Layer
-   Violation between Track (761.366mil,317.807mil)(891.287mil,317.807mil)  Bottom Overlay and 
-                     Pad R8-2(790.893mil,351.271mil)  Bottom Layer
-   Violation between Track (761.366mil,384.735mil)(891.287mil,384.735mil)  Bottom Overlay and 
-                     Pad R8-2(790.893mil,351.271mil)  Bottom Layer
-   Violation between Track (891.287mil,317.807mil)(891.287mil,384.735mil)  Bottom Overlay and 
-                     Pad R8-1(861.76mil,351.271mil)  Bottom Layer
-   Violation between Track (761.366mil,317.807mil)(891.287mil,317.807mil)  Bottom Overlay and 
-                     Pad R8-1(861.76mil,351.271mil)  Bottom Layer
-   Violation between Track (761.366mil,384.735mil)(891.287mil,384.735mil)  Bottom Overlay and 
-                     Pad R8-1(861.76mil,351.271mil)  Bottom Layer
    Violation between Track (1316.367mil,267.807mil)(1316.367mil,334.735mil)  Bottom Overlay and 
                      Pad R4-2(1345.892mil,301.271mil)  Bottom Layer
    Violation between Track (1316.367mil,267.807mil)(1446.286mil,267.807mil)  Bottom Overlay and 
@@ -371,15 +358,15 @@ Processing Rule : Silk To Solder Mask (Clearance=10mil) (IsPad),(All)
                      Pad C5-2(1131.326mil,951.901mil)  Bottom Layer
    Violation between Track (1097.074mil,918.831mil)(1166.367mil,918.831mil)  Bottom Overlay and 
                      Pad C5-2(1131.326mil,951.901mil)  Bottom Layer
-Rule Violations :148
+Rule Violations :141
 
 Processing Rule : Silk to Silk (Clearance=10mil) (All),(All)
+   Violation between Text "S1" (190mil,185mil)  Top Overlay and 
+                     Track (289.318mil,117.271mil)(289.318mil,254.263mil)  Top Overlay
    Violation between Text "T1" (706.327mil,286.271mil)  Top Overlay and 
                      Track (675.461mil,268.949mil)(821.13mil,268.949mil)  Top Overlay
    Violation between Text "R1" (1800mil,525mil)  Bottom Overlay and 
                      Track (1728.465mil,420.039mil)(1728.465mil,549.961mil)  Bottom Overlay
-   Violation between Text "T3" (777.251mil,203.148mil)  Bottom Overlay and 
-                     Track (790.461mil,143.593mil)(790.461mil,301.075mil)  Bottom Overlay
    Violation between Text "C6" (1705mil,55mil)  Bottom Overlay and 
                      Track (1582.56mil,129.96mil)(1727.834mil,129.96mil)  Bottom Overlay
    Violation between Text "R2" (1800mil,385mil)  Bottom Overlay and 
@@ -403,5 +390,5 @@ Processing Rule : Room Keyfinder_Power (Bounding Region = (975mil, 975mil, 2775m
 Rule Violations :0
 
 
-Violations Detected : 176
-Time Elapsed        : 00:00:03
+Violations Detected : 170
+Time Elapsed        : 00:00:02
