@@ -22,7 +22,9 @@ static void led_task(void *param) {
 }
 
 void APP_Run(void) {
+#if PL_CONFIG_HAS_SHELL
   SHELL_Init();
+#endif
 #if PL_CONFIG_HAS_RADIO
   RNETA_Init();
 #endif

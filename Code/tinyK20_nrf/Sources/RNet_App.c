@@ -143,7 +143,7 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 #if PL_CONFIG_IS_KEYFINDER==0
 		cntr++;
     	if (cntr==100) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
-    		RAPP_SendPayloadDataBlock(&msgCntr, sizeof(msgCntr), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_NONE);
+    		RAPP_SendPayloadDataBlock(&msgCntr, sizeof(msgCntr), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
     		msgCntr++;
     		cntr = 0;
     		LED1_Neg();
