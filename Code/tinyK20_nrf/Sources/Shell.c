@@ -24,7 +24,6 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 {
   CLS1_ParseCommand,
   FRTOS1_ParseCommand,
-  RADIO_ParseCommand,
 #if PL_CONFIG_HAS_RADIO
 #if RNET1_PARSE_COMMAND_ENABLED
   RNET1_ParseCommand,
@@ -36,32 +35,13 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
   NULL /* sentinel */
 };
 
-#if PL_CONFIG_HAS_SEGGER_RTT
-static CLS1_ConstStdIOType RTT_Stdio = {
-  (CLS1_StdIO_In_FctType)RTT1_StdIOReadChar, /* stdin */
-  (CLS1_StdIO_OutErr_FctType)RTT1_StdIOSendChar, /* stdout */
-  (CLS1_StdIO_OutErr_FctType)RTT1_StdIOSendChar, /* stderr */
-  RTT1_StdIOKeyPressed /* if input is not empty */
-};
-#endif
-
 static void ShellTask(void *pvParameters) {
-#if PL_CONFIG_HAS_SEGGER_RTT
-  static unsigned char rtt_buf[48];
-#endif
   unsigned char buf[48];
-
   (void)pvParameters; /* not used */
   buf[0] = '\0';
-#if PL_CONFIG_HAS_SEGGER_RTT
-  rtt_buf[0] = '\0';
-#endif
   (void)CLS1_ParseWithCommandTable((unsigned char*)CLS1_CMD_HELP, CLS1_GetStdio(), CmdParserTable);
   for(;;) {
     (void)CLS1_ReadAndParseWithCommandTable(buf, sizeof(buf), CLS1_GetStdio(), CmdParserTable);
-#if PL_CONFIG_HAS_SEGGER_RTT
-    (void)CLS1_ReadAndParseWithCommandTable(rtt_buf, sizeof(rtt_buf), &RTT_Stdio, CmdParserTable);
-#endif
     FRTOS1_vTaskDelay(pdMS_TO_TICKS(10));
   }
 }

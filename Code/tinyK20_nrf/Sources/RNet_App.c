@@ -69,7 +69,7 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
       return ERR_OK;
 
     case RAPP_MSG_TYPE_PING:
-#if PL_CONFIG_IS_SENDER==0
+#if PL_CONFIG_IS_KEYFINDER
         LED1_On(); /* blue LED blink */
         FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
         LED1_Off();
@@ -84,12 +84,6 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
 
 static const RAPP_MsgHandler handlerTable[] = 
 {
-#if RNET_CONFIG_REMOTE_STDIO
-  RSTDIO_HandleStdioRxMessage,
-#endif
-#if PL_COFNIG_HAS_REMOTE
-  REMOTE_HandleRemoteRxMessage,
-#endif
   HandleDataRxMessage,
   NULL /* sentinel */
 };
@@ -146,7 +140,7 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 	appState = RNETA_NONE;
 	for(;;) {
 		Process(); /* process radio in/out queues */
-#if PL_CONFIG_IS_SENDER
+#if PL_CONFIG_IS_KEYFINDER==0
 		cntr++;
     	if (cntr==100) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
     		RAPP_SendPayloadDataBlock(&msgCntr, sizeof(msgCntr), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_NONE);
@@ -173,7 +167,7 @@ void RNETA_Init(void) {
         "Radio", /* task name for kernel awareness debugging */
         configMINIMAL_STACK_SIZE+200, /* task stack size */
         (void*)NULL, /* optional task startup argument */
-        tskIDLE_PRIORITY+2,  /* initial priority */
+        tskIDLE_PRIORITY+2,  /* initial priority +2 */
         (xTaskHandle*)NULL /* optional task handle to create */
       ) != pdPASS) {
     /*lint -e527 */
@@ -206,9 +200,6 @@ static void PrintHelp(const CLS1_StdIOType *io) {
   CLS1_SendHelpStr((unsigned char*)"  saddr 0x<addr>", (unsigned char*)"Set source node address\r\n", io->stdOut);
   CLS1_SendHelpStr((unsigned char*)"  daddr 0x<addr>", (unsigned char*)"Set destination node address\r\n", io->stdOut);
   CLS1_SendHelpStr((unsigned char*)"  send val <val>", (unsigned char*)"Set a value to the destination node\r\n", io->stdOut);
-#if RNET_CONFIG_REMOTE_STDIO
-  CLS1_SendHelpStr((unsigned char*)"  send (in/out/err)", (unsigned char*)"Send a string to stdio using the wireless transceiver\r\n", io->stdOut);
-#endif
 }
 
 uint8_t RNETA_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOType *io) {
@@ -250,31 +241,6 @@ uint8_t RNETA_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_S
       CLS1_SendStr((unsigned char*)"ERR: wrong address\r\n", io->stdErr);
       return ERR_FAILED;
     }
-#if RNET_CONFIG_REMOTE_STDIO
-  } else if (UTIL1_strncmp((char*)cmd, (char*)"rapp send", sizeof("rapp send")-1)==0) {
-    unsigned char buf[32];
-    RSTDIO_QueueType queue;
-    
-    if (UTIL1_strncmp((char*)cmd, (char*)"rapp send in", sizeof("rapp send in")-1)==0) {
-      queue = RSTDIO_QUEUE_TX_IN;
-      cmd += sizeof("rapp send in");
-    } else if (UTIL1_strncmp((char*)cmd, (char*)"rapp send out", sizeof("rapp send out")-1)==0) {
-      queue = RSTDIO_QUEUE_TX_OUT;      
-      cmd += sizeof("rapp send out");
-    } else if (UTIL1_strncmp((char*)cmd, (char*)"rapp send err", sizeof("rapp send err")-1)==0) {
-      queue = RSTDIO_QUEUE_TX_ERR;      
-      cmd += sizeof("rapp send err");
-    } else {
-      return ERR_OK; /* not handled */
-    }
-    UTIL1_strcpy(buf, sizeof(buf), cmd);
-    UTIL1_chcat(buf, sizeof(buf), '\n');
-    buf[sizeof(buf)-2] = '\n'; /* have a '\n' in any case */
-    if (RSTDIO_SendToTxStdio(queue, buf, UTIL1_strlen((char*)buf))!=ERR_OK) {
-      CLS1_SendStr((unsigned char*)"failed!\r\n", io->stdErr);
-    }
-    *handled = TRUE;
-#endif
   }
   return res;
 }
