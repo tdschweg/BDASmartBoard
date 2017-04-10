@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\Matthias\Documents\BDASmartBoard\PCB\Keyfinder\Keyfinder_v1\Keyfinder.PcbDoc
-Date     : 03.04.2017
-Time     : 17:48:54
+Date     : 10.04.2017
+Time     : 09:30:27
 
 Processing Rule : Room Keyfinder_Power (Bounding Region = (975mil, 975mil, 2775mil, 2270mil) (InComponentClass('Keyfinder_Power'))
 Rule Violations :0
