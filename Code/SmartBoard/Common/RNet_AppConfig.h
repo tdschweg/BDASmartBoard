@@ -11,6 +11,7 @@
 #define __RNET_APP_CONFIG__
 
 #include "Platform.h"
+#include "Platform_Local.h"
 
 /*! type ID's for application messages */
 typedef enum {

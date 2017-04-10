@@ -8,6 +8,7 @@
  */
 
 #include "Platform.h"
+#include "Platform_Local.h"
 #if PL_CONFIG_HAS_RADIO
 #include "RNet_App.h"
 #include "RNetConf.h"
@@ -18,11 +19,6 @@
 #include "FRTOS1.h"
 #include "RPHY.h"
 #include "LED1.h"
-#include "LED1.h"
-#include "BAT_KON_LED.h"
-#include "ALERT_LED.h"
-#include "ALERT_BUZZER.h"
-#include "BAT_KON.h"
 #if RNET_CONFIG_REMOTE_STDIO
   #include "RStdIO.h"
 #endif
@@ -30,6 +26,12 @@
   #include "Remote.h"
 #endif
 #include "Shell.h"
+#if !PL_CONFIG_IS_KEYFINDER
+#include "SmartBoard.h"
+#endif
+#if PL_CONFIG_IS_KEYFINDER
+#include "Keyfinder.h"
+#endif
 
 static RNWK_ShortAddrType APP_dstAddr = RNWK_ADDR_BROADCAST; /* destination node address */
 
@@ -85,22 +87,10 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
     	keyfinder = val && 0x07;
 		state = (val & KEYFINDER_ON) >> 3;
 
-		//Keyfinder wird angepingt
-		if(keyfinder == KEYFINDER_NR){
-			if(state==1){
-				LED1_On();
-				ALERT_LED_On();
-				ALERT_BUZZER_SetVal();
-			}
-			else{
-				LED1_Off();
-				ALERT_LED_Off();
-				ALERT_BUZZER_ClrVal();
-			}
-		}
+		Keyfinderpingen(keyfinder, state);
 
 		//Schwarm Denken
-		else{
+		if(keyfinder != KEYFINDER_NR){
 			RAPP_SendPayloadDataBlock(&val, sizeof(val), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
 		}
 #endif
@@ -197,13 +187,7 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
  * Keyfinder TASK
  */
 #if PL_CONFIG_IS_KEYFINDER
-    	//Batteriekontrolle Auswertung
-    	if(BAT_KON_GetVal()){
-    		BAT_KON_LED_On();
-    	}
-    	else{
-    		BAT_KON_LED_Off();
-    	}
+    	KeyfinderBatAuswertung();
 #endif
 
     FRTOS1_vTaskDelay(10/portTICK_PERIOD_MS);

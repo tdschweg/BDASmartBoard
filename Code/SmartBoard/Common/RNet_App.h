@@ -9,6 +9,7 @@
 #define RNETAPP_H_
 
 #include "Platform.h"
+#include "Platform_Local.h"
 #include "RNWK.h"
 #if PL_CONFIG_HAS_SHELL
 #include "CLS1.h"

@@ -6,6 +6,7 @@
  */
 
 #include "Platform.h"
+#include "Platform_Local.h"
 #include "FRTOS1.h"
 #include "Shell.h"
 #include "CLS1.h"

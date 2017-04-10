@@ -3,6 +3,7 @@
  *      Author: Erich Styger
  */
 #include "Platform.h"
+#include "Platform_Local.h"
 #include "Application.h"
 #include "FRTOS1.h"
 #include "Shell.h"
