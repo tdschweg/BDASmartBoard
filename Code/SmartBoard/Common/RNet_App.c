@@ -46,6 +46,7 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
   CLS1_ConstStdIOTypePtr io = CLS1_GetStdio();
 #endif
   uint8_t val;
+  uint8_t keyfinder, state;
   
   (void)size;
   (void)packet;
@@ -68,11 +69,34 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
 #endif /* PL_HAS_SHELL */
       return ERR_OK;
 
+/*
+* Keyfinder TASK
+*/
     case RAPP_MSG_TYPE_PING:
 #if PL_CONFIG_IS_KEYFINDER
-        LED1_On(); /* blue LED blink */
-        FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
-        LED1_Off();
+    	*handled = TRUE;
+    	val = *data; /* get data value */
+
+    	keyfinder = val && 0x07;
+		state = (val & KEYFINDER_ON) >> 3;
+
+		//Keyfinder wird angepingt
+		if(keyfinder == KEYFINDER_NR){
+			if(state==1){
+				LED1_On();
+			}
+			else{
+				LED1_Off();
+			}
+		}
+
+		//Schwarm Denken
+		else{
+			RAPP_SendPayloadDataBlock(&val, sizeof(val), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
+		}
+        //LED1_On(); /* blue LED blink */
+        //FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
+        //LED1_Off();
 #endif
     return ERR_OK;
 
@@ -133,19 +157,30 @@ static void Init(void) {
 
 static portTASK_FUNCTION(RadioTask, pvParameters) {
 	uint32_t cntr;
-	uint8_t msgCntr;
+	uint8_t msg;
+	uint8_t dongle=0;
 
 	(void)pvParameters; /* not used */
 	Init();
 	appState = RNETA_NONE;
 	for(;;) {
 		Process(); /* process radio in/out queues */
-
-#if PL_CONFIG_IS_KEYFINDER==0		//SmartBoard Task
+/*
+ * SmartBoard TASK
+ */
+#if !PL_CONFIG_IS_KEYFINDER
 		cntr++;
     	if (cntr==100) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
-    		RAPP_SendPayloadDataBlock(&msgCntr, sizeof(msgCntr), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
-    		msgCntr++;
+    		if(dongle==0){
+    			msg = KEYFINDER_A | KEYFINDER_ON;
+    			dongle = 1;
+    		}
+    		else{
+    			msg = KEYFINDER_A | KEYFINDER_OFF;
+    			dongle = 0;
+    		}
+
+    		RAPP_SendPayloadDataBlock(&msg, sizeof(msg), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
     		cntr = 0;
     		LED1_Neg();
     	}
