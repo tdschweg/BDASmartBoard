@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\Matthias\Documents\BDASmartBoard\PCB\MainBoard\MainBoard_v1\MainBoard.PcbDoc
 Date     : 10.04.2017
-Time     : 11:37:32
+Time     : 11:56:03
 
 Processing Rule : Room MainBoard_Light (Bounding Region = (2150mil, 1320mil, 4715mil, 2280mil) (InComponentClass('MainBoard_Light'))
 Rule Violations :0
@@ -783,4 +783,4 @@ Rule Violations :0
 
 
 Violations Detected : 365
-Time Elapsed        : 00:00:04
+Time Elapsed        : 00:00:03
