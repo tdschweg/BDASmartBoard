@@ -15,11 +15,12 @@
  */
 #define PL_CONFIG_IS_KEYFINDER	  1
 
-
+/*
+ * KEYFINDER - Maske
+ * Maske: STATE && NR
+ */
 #if PL_CONFIG_IS_KEYFINDER
 /*
- * Maske: Status && ART
- *
  * 1 = Keyfinder A
  * 2 = Keyfinder B
  * 3 = Keyfinder C
@@ -27,18 +28,17 @@
  */
 #define KEYFINDER_NR			  1
 #endif
-
 #define KEYFINDER_A	  			  1
 #define KEYFINDER_B	  			  2
 #define KEYFINDER_C	  			  3
 #define KEYFINDER_D	  			  4
-
 /*
- * 0x80 = Keyfinder ein
- * 0x00 = Keyfinder aus
+ * 0x80 = Keyfinder on
+ * 0x00 = Keyfinder off
  */
 #define KEYFINDER_ON			  8
 #define KEYFINDER_OFF			  0
+
 
 #define PL_CONFIG_HAS_DUMMY_LED   0
 #define PL_CONFIG_HAS_SEGGER_RTT  0  /* if using extra Segger RTT beside of default I/O */

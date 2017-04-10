@@ -18,6 +18,11 @@
 #include "FRTOS1.h"
 #include "RPHY.h"
 #include "LED1.h"
+#include "LED1.h"
+#include "BAT_KON_LED.h"
+#include "ALERT_LED.h"
+#include "ALERT_BUZZER.h"
+#include "BAT_KON.h"
 #if RNET_CONFIG_REMOTE_STDIO
   #include "RStdIO.h"
 #endif
@@ -84,9 +89,13 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
 		if(keyfinder == KEYFINDER_NR){
 			if(state==1){
 				LED1_On();
+				ALERT_LED_On();
+				ALERT_BUZZER_SetVal();
 			}
 			else{
 				LED1_Off();
+				ALERT_LED_Off();
+				ALERT_BUZZER_ClrVal();
 			}
 		}
 
@@ -94,9 +103,6 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
 		else{
 			RAPP_SendPayloadDataBlock(&val, sizeof(val), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
 		}
-        //LED1_On(); /* blue LED blink */
-        //FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
-        //LED1_Off();
 #endif
     return ERR_OK;
 
@@ -165,6 +171,7 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 	appState = RNETA_NONE;
 	for(;;) {
 		Process(); /* process radio in/out queues */
+
 /*
  * SmartBoard TASK
  */
@@ -185,6 +192,20 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
     		LED1_Neg();
     	}
 #endif
+
+/*
+ * Keyfinder TASK
+ */
+#if PL_CONFIG_IS_KEYFINDER
+    	//Batteriekontrolle Auswertung
+    	if(BAT_KON_GetVal()){
+    		BAT_KON_LED_On();
+    	}
+    	else{
+    		BAT_KON_LED_Off();
+    	}
+#endif
+
     FRTOS1_vTaskDelay(10/portTICK_PERIOD_MS);
 	}
 }

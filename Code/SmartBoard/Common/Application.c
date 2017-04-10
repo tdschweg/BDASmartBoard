@@ -8,6 +8,7 @@
 #include "Shell.h"
 #include "LED1.h"
 #include "RNet_App.h"
+#include "Platform_Init.h"
 
 void APP_DebugPrint(uint8_t *str) {
  /* dummy */
@@ -22,6 +23,7 @@ static void led_task(void *param) {
 }
 
 void APP_Run(void) {
+  platform_Init();
 #if PL_CONFIG_HAS_SHELL
   SHELL_Init();
 #endif
