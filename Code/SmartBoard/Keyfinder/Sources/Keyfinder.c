@@ -13,23 +13,21 @@
 #include "ALERT_BUZZER.h"
 #include "BAT_KON.h"
 
-void Keyfinderpingen(int keyfinder, int state){
+void KeyfinderAlert(int state){
 	//Keyfinder wird angepingt
-	if(keyfinder == KEYFINDER_NR){
-		if(state==1){
-			LED1_On();
-			ALERT_LED_On();
-			ALERT_BUZZER_SetVal();
-		}
-		else{
-			LED1_Off();
-			ALERT_LED_Off();
-			ALERT_BUZZER_ClrVal();
-		}
+	if(state==1){
+		LED1_On();
+		ALERT_LED_On();
+		ALERT_BUZZER_SetVal();
+	}
+	else{
+		LED1_Off();
+		ALERT_LED_Off();
+		ALERT_BUZZER_ClrVal();
 	}
 }
 
-void KeyfinderBatAuswertung(void){
+void KeyfinderBatEvaluation(void){
 	//Batteriekontrolle Auswertung
 	if(BAT_KON_GetVal()){
 		BAT_KON_LED_On();

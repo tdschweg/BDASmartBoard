@@ -10,6 +10,8 @@
 
 void platform_Init(void){
 	LED1_Init();
+
+	//proximity init
 }
 
 void platform_Deinit(void){

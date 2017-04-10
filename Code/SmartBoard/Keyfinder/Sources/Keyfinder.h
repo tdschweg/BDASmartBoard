@@ -8,8 +8,8 @@
 #ifndef SOURCES_KEYFINDER_H_
 #define SOURCES_KEYFINDER_H_
 
-void Keyfinderpingen(int keyfinder, int state);
+void KeyfinderAlert(int state);
 
-void KeyfinderBatAuswertung(void);
+void KeyfinderBatEvaluation(void);
 
 #endif /* SOURCES_KEYFINDER_H_ */

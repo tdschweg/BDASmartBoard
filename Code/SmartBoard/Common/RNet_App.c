@@ -84,13 +84,15 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
     	*handled = TRUE;
     	val = *data; /* get data value */
 
-    	keyfinder = val && 0x07;
+    	keyfinder = val & 0x07;
 		state = (val & KEYFINDER_ON) >> 3;
 
-		Keyfinderpingen(keyfinder, state);
-
+		//Keyfinder Alert
+		if(keyfinder == KEYFINDER_NR){
+			KeyfinderAlert(state);
+		}
 		//Schwarm Denken
-		if(keyfinder != KEYFINDER_NR){
+		else{
 			RAPP_SendPayloadDataBlock(&val, sizeof(val), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
 		}
 #endif
@@ -166,6 +168,12 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
  * SmartBoard TASK
  */
 #if !PL_CONFIG_IS_KEYFINDER
+		//Light Detector
+
+		//Proximity power mode
+
+		//Schalen auswertung; Rückgabewert (0=kein, 1, 2, 3, 4) welcher Keyfinder muss angepingt werden
+
 		cntr++;
     	if (cntr==100) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
     		if(dongle==0){
@@ -181,13 +189,20 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
     		cntr = 0;
     		LED1_Neg();
     	}
+
+		//an led anzeigen
+
+    	//Initialisierungs Button
+
+    	//Bat Kon
+
 #endif
 
 /*
  * Keyfinder TASK
  */
 #if PL_CONFIG_IS_KEYFINDER
-    	KeyfinderBatAuswertung();
+    KeyfinderBatEvaluation();
 #endif
 
     FRTOS1_vTaskDelay(10/portTICK_PERIOD_MS);
