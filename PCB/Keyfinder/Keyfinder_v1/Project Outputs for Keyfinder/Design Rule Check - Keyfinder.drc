@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\Matthias\Documents\BDASmartBoard\PCB\Keyfinder\Keyfinder_v1\Keyfinder.PcbDoc
-Date     : 10.04.2017
-Time     : 09:30:27
+Date     : 11.04.2017
+Time     : 21:33:57
 
 Processing Rule : Room Keyfinder_Power (Bounding Region = (975mil, 975mil, 2775mil, 2270mil) (InComponentClass('Keyfinder_Power'))
 Rule Violations :0
@@ -10,11 +10,7 @@ Processing Rule : Rule
 Rule Violations :0
 
 Processing Rule : Net Antennae (Tolerance=0mil) (All)
-   Violation between Net Antennae: Track (1571.326mil,71.271mil)(1696.326mil,71.271mil)  Top Layer
-   Violation between Net Antennae: Track (1571.326mil,71.271mil)(1696.326mil,71.271mil)  Top Layer
-   Violation between Net Antennae: Track (1126.326mil,946.901mil)(1255.697mil,946.901mil)  Top Layer
-   Violation between Net Antennae: Track (1126.326mil,946.901mil)(1255.697mil,946.901mil)  Top Layer
-Rule Violations :4
+Rule Violations :0
 
 Processing Rule : Silk primitive without silk layer
 Rule Violations :0
@@ -26,8 +22,8 @@ Processing Rule : Silk to Silk (Clearance=10mil) (All),(All)
                      Track (289.318mil,117.271mil)(289.318mil,254.263mil)  Top Overlay
    Violation between Text "R2" (1800mil,385mil)  Bottom Overlay and 
                      Track (1728.464mil,270.04mil)(1728.464mil,399.96mil)  Bottom Overlay
-   Violation between Text "C6" (1735mil,50mil)  Bottom Overlay and 
-                     Track (1612.56mil,124.96mil)(1757.834mil,124.96mil)  Bottom Overlay
+   Violation between Text "C6" (1735mil,75mil)  Bottom Overlay and 
+                     Track (1612.56mil,149.96mil)(1757.834mil,149.96mil)  Bottom Overlay
    Violation between Text "R1" (1800mil,525mil)  Bottom Overlay and 
                      Track (1728.465mil,420.039mil)(1728.465mil,549.961mil)  Bottom Overlay
 Rule Violations :5
@@ -239,18 +235,18 @@ Processing Rule : Silk To Solder Mask (Clearance=10mil) (IsPad),(All)
                      Pad R2-2(1695mil,299.566mil)  Bottom Layer
    Violation between Track (1661.536mil,270.04mil)(1728.464mil,270.04mil)  Bottom Overlay and 
                      Pad R2-2(1695mil,299.566mil)  Bottom Layer
-   Violation between Track (1612.56mil,124.96mil)(1612.56mil,194.252mil)  Bottom Overlay and 
-                     Pad C6-2(1645.63mil,160mil)  Bottom Layer
-   Violation between Track (1612.56mil,124.96mil)(1757.834mil,124.96mil)  Bottom Overlay and 
-                     Pad C6-2(1645.63mil,160mil)  Bottom Layer
-   Violation between Track (1612.56mil,194.252mil)(1757.834mil,194.252mil)  Bottom Overlay and 
-                     Pad C6-2(1645.63mil,160mil)  Bottom Layer
-   Violation between Track (1757.834mil,124.96mil)(1757.834mil,194.252mil)  Bottom Overlay and 
-                     Pad C6-1(1724.37mil,160mil)  Bottom Layer
-   Violation between Track (1612.56mil,124.96mil)(1757.834mil,124.96mil)  Bottom Overlay and 
-                     Pad C6-1(1724.37mil,160mil)  Bottom Layer
-   Violation between Track (1612.56mil,194.252mil)(1757.834mil,194.252mil)  Bottom Overlay and 
-                     Pad C6-1(1724.37mil,160mil)  Bottom Layer
+   Violation between Track (1612.56mil,149.96mil)(1612.56mil,219.252mil)  Bottom Overlay and 
+                     Pad C6-2(1645.63mil,185mil)  Bottom Layer
+   Violation between Track (1612.56mil,219.252mil)(1757.834mil,219.252mil)  Bottom Overlay and 
+                     Pad C6-2(1645.63mil,185mil)  Bottom Layer
+   Violation between Track (1612.56mil,149.96mil)(1757.834mil,149.96mil)  Bottom Overlay and 
+                     Pad C6-2(1645.63mil,185mil)  Bottom Layer
+   Violation between Track (1757.834mil,149.96mil)(1757.834mil,219.252mil)  Bottom Overlay and 
+                     Pad C6-1(1724.37mil,185mil)  Bottom Layer
+   Violation between Track (1612.56mil,219.252mil)(1757.834mil,219.252mil)  Bottom Overlay and 
+                     Pad C6-1(1724.37mil,185mil)  Bottom Layer
+   Violation between Track (1612.56mil,149.96mil)(1757.834mil,149.96mil)  Bottom Overlay and 
+                     Pad C6-1(1724.37mil,185mil)  Bottom Layer
    Violation between Track (1371.286mil,342.807mil)(1371.286mil,409.735mil)  Bottom Overlay and 
                      Pad R3-1(1341.761mil,376.271mil)  Bottom Layer
    Violation between Track (1241.367mil,342.807mil)(1371.286mil,342.807mil)  Bottom Overlay and 
@@ -340,16 +336,14 @@ Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
 Rule Violations :0
 
 Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
-   Violation between Hole Size Constraint (137.795mil > 100mil) : Pad Free-0(130mil,130mil)  Multi-Layer
+   Violation between Hole Size Constraint (118.11mil > 100mil) : Pad Free-0(130mil,130mil)  Multi-Layer
 Rule Violations :1
 
 Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
 Rule Violations :0
 
 Processing Rule : Width Constraint (Min=13mil) (Max=13mil) (Preferred=13mil) (All)
-   Violation between Width Constraint: Track (1571.326mil,71.271mil)(1696.326mil,71.271mil)  Top Layer
-   Violation between Width Constraint: Track (1126.326mil,946.901mil)(1255.697mil,946.901mil)  Top Layer
-Rule Violations :2
+Rule Violations :0
 
 Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
 Rule Violations :0
@@ -374,8 +368,7 @@ Processing Rule : Clearance Constraint (Gap=13mil) (All),(All)
 Rule Violations :8
 
 Processing Rule : Un-Routed Net Constraint ( (All) )
-   Violation between Un-Routed Net Constraint: Net 3V3 Between Pad C6-2 (1645.63,160mil) And Track on layer Top Layer (1696.326,71.271mil)
-Rule Violations :1
+Rule Violations :0
 
 Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
 Rule Violations :0
@@ -390,5 +383,5 @@ Processing Rule : Room Keyfinder_MCU (Bounding Region = (975mil, 975mil, 2775mil
 Rule Violations :0
 
 
-Violations Detected : 170
+Violations Detected : 163
 Time Elapsed        : 00:00:02

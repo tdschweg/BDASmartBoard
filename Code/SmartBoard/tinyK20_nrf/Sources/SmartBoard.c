@@ -5,6 +5,8 @@
  *      Author: Matthias
  */
 
+#include "Platform.h"
+#include "PE_Types.h"
 
 bool LightDetectorEvaluation(void){
 	return 0;
