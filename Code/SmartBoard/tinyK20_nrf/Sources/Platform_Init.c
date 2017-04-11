@@ -10,8 +10,9 @@
 
 void platform_Init(void){
 	LED1_Init();
+	//Aktivierung LED init
 
-	//proximity init
+	//Proximity Detector init
 }
 
 void platform_Deinit(void){

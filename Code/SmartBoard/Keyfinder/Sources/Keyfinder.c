@@ -13,7 +13,7 @@
 #include "ALERT_BUZZER.h"
 #include "BAT_KON.h"
 
-void KeyfinderAlert(int state){
+void KeyfinderAlert(bool state){
 	//Keyfinder wird angepingt
 	if(state==1){
 		LED1_On();

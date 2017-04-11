@@ -12,7 +12,7 @@
 
 /*
  * KEYFINDER - Maske
- * Maske: STATE && NR
+ * Maske: STATE | NR
  *
  * 1 = Keyfinder A
  * 2 = Keyfinder B
@@ -25,6 +25,7 @@
 #define KEYFINDER_D	  			  4
 
 /*
+ * STATE:
  * 0x80 = Keyfinder on
  * 0x00 = Keyfinder off
  */

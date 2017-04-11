@@ -205,6 +205,8 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
     KeyfinderBatEvaluation();
 #endif
 
+    //Low Power Mode
+
     FRTOS1_vTaskDelay(10/portTICK_PERIOD_MS);
 	}
 }

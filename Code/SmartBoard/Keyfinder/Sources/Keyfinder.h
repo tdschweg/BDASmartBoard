@@ -8,7 +8,7 @@
 #ifndef SOURCES_KEYFINDER_H_
 #define SOURCES_KEYFINDER_H_
 
-void KeyfinderAlert(int state);
+void KeyfinderAlert(bool state);
 
 void KeyfinderBatEvaluation(void);
 
