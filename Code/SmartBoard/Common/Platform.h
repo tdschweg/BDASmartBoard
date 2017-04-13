@@ -14,16 +14,15 @@
  * KEYFINDER - Maske
  * Maske: STATE | NR
  *
- * 1 = Keyfinder A
- * 2 = Keyfinder B
- * 3 = Keyfinder C
- * 4 = Keyfinder D
+ * 0 = Keyfinder A
+ * 1 = Keyfinder B
+ * 2 = Keyfinder C
+ * 3 = Keyfinder D
  */
-#define KEYFINDER_A	  			  1
-#define KEYFINDER_B	  			  2
-#define KEYFINDER_C	  			  3
-#define KEYFINDER_D	  			  4
-
+#define KEYFINDER_A	  			  0
+#define KEYFINDER_B	  			  1
+#define KEYFINDER_C	  			  2
+#define KEYFINDER_D	  			  3
 /*
  * STATE:
  * 0x80 = Keyfinder on

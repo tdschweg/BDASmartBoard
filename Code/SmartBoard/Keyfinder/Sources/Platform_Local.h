@@ -9,6 +9,7 @@
 #define SOURCES_PLATFORM_LOCAL_H_
 
 #include <stdint.h>
+
 /*
  * 0 = SmartBoard
  * 1 = Keyfinder
@@ -17,15 +18,17 @@
 
 #if PL_CONFIG_IS_KEYFINDER
 /*
- * 1 = Keyfinder A
- * 2 = Keyfinder B
- * 3 = Keyfinder C
- * 4 = Keyfinder D
+ * 0 = Keyfinder A
+ * 1 = Keyfinder B
+ * 2 = Keyfinder C
+ * 3 = Keyfinder D
  */
-#define KEYFINDER_NR			  1
+#define KEYFINDER_NR			  KEYFINDER_B
 #endif
 
-
+/*
+ * Default
+ */
 #define PL_CONFIG_HAS_DUMMY_LED   0
 #define PL_CONFIG_HAS_SEGGER_RTT  0  /* if using extra Segger RTT beside of default I/O */
 #define PL_CONFIG_HAS_RADIO       1

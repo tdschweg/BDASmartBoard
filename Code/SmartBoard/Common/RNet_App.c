@@ -177,11 +177,11 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 		cntr++;
     	if (cntr==4) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
     		if(dongle==0){
-    			msg = KEYFINDER_A | KEYFINDER_ON;
+    			msg = KEYFINDER_B | KEYFINDER_ON;
     			dongle = 1;
     		}
     		else{
-    			msg = KEYFINDER_A | KEYFINDER_OFF;
+    			msg = KEYFINDER_B | KEYFINDER_OFF;
     			dongle = 0;
     		}
 

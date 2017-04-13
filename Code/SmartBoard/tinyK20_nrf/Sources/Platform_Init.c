@@ -6,17 +6,28 @@
  */
 
 #include "LED1.h"
+#include "LEDA.h"
+#include "LEDB.h"
+#include "LEDC.h"
+#include "LEDD.h"
 
 
 void platform_Init(void){
 	LED1_Init();
 	//Aktivierung LED init
-
-	//Proximity Detector init
+	LEDA_Init();
+	LEDB_Init();
+	LEDC_Init();
+	LEDD_Init();
 }
 
 void platform_Deinit(void){
+	//Aktivierung LED deinit
 	LED1_Deinit();
+	LEDA_Deinit();
+	LEDB_Deinit();
+	LEDC_Deinit();
+	LEDD_Deinit();
 }
 
 

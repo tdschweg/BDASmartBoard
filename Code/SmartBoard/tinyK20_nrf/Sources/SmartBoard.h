@@ -8,16 +8,20 @@
 #ifndef SOURCES_SMARTBOARD_H_
 #define SOURCES_SMARTBOARD_H_
 
+#include "PE_Types.h"
+
 bool LightDetectorEvaluation(void);
 
 void PowerModeProximityDetector(bool state);
 
-uint8_t PoolEvaluation(void);
+//uint8_t PoolEvaluation(void);
 
-void LEDVisualisation(uint8_t LED_Nr);
+void LEDVisualisation(uint8_t LED_Nr, bool state);
 
-bool InitButton(void);
+void InitButtonInit(void);
 
-bool KeyfinderBatEvalution(void);
+void KeyfinderFunctionDetectorInit(void);
+
+void BatteryEvaluationInit(void);
 
 #endif /* SOURCES_SMARTBOARD_H_ */
