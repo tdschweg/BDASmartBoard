@@ -10,6 +10,14 @@
 #include "LED1.h"
 #include "RNet_App.h"
 #include "Platform_Init.h"
+//Keyfinder
+#if PL_CONFIG_IS_KEYFINDER
+#include "Keyfinder.h"
+#endif
+//SmartBoard
+#if !PL_CONFIG_IS_KEYFINDER
+#include "SmartBoard.h"
+#endif
 
 void APP_DebugPrint(uint8_t *str) {
  /* dummy */
@@ -30,6 +38,9 @@ void APP_Run(void) {
 #endif
 #if PL_CONFIG_HAS_RADIO
   RNETA_Init();
+#endif
+#if PL_CONFIG_IS_KEYFINDER
+  KeyfinderBatEvalutaionInit();
 #endif
 #if PL_CONFIG_HAS_DUMMY_LED
   if (xTaskCreate(led_task, "Led", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {

@@ -175,7 +175,7 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 		//Schalen auswertung; Rückgabewert (0=kein, 1, 2, 3, 4) welcher Keyfinder muss angepingt werden
 
 		cntr++;
-    	if (cntr==100) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
+    	if (cntr==4) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
     		if(dongle==0){
     			msg = KEYFINDER_A | KEYFINDER_ON;
     			dongle = 1;
@@ -197,17 +197,9 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
     	//Bat Kon
 
 #endif
+    //Go into Low Power Mode
 
-/*
- * Keyfinder TASK
- */
-#if PL_CONFIG_IS_KEYFINDER
-    KeyfinderBatEvaluation();
-#endif
-
-    //Low Power Mode
-
-    FRTOS1_vTaskDelay(10/portTICK_PERIOD_MS);
+    FRTOS1_vTaskDelay(1000/portTICK_PERIOD_MS);
 	}
 }
 

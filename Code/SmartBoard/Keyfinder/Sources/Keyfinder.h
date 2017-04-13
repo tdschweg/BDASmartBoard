@@ -8,8 +8,10 @@
 #ifndef SOURCES_KEYFINDER_H_
 #define SOURCES_KEYFINDER_H_
 
+#include "PE_Types.h"
+
 void KeyfinderAlert(bool state);
 
-void KeyfinderBatEvaluation(void);
+void KeyfinderBatEvalutaionInit(void);
 
 #endif /* SOURCES_KEYFINDER_H_ */
