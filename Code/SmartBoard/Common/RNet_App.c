@@ -174,8 +174,9 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 
 		//Schalen auswertung; Rückgabewert (0=kein, 1, 2, 3, 4) welcher Keyfinder muss angepingt werden
 
+		/*
 		cntr++;
-    	if (cntr==4) { /* with an RTOS 10 ms/100 Hz tick rate, this is every second */
+    	if (cntr==4) { //with an RTOS 10 ms/100 Hz tick rate, this is every second
     		if(dongle==0){
     			msg = KEYFINDER_B | KEYFINDER_ON;
     			dongle = 1;
@@ -184,11 +185,14 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
     			msg = KEYFINDER_B | KEYFINDER_OFF;
     			dongle = 0;
     		}
-
+    		*/
+			msg = getKeyfinderFunctionNr() | getKeyfinderFunctionState();
     		RAPP_SendPayloadDataBlock(&msg, sizeof(msg), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
-    		cntr = 0;
+    		//setKeyfinderFuction(getKeyfinderFunctionNr(), KEYFINDER_IDLE);
+    		//cntr = 0;
     		LED1_Neg();
-    	}
+    	//}
+    	//*/
 
 		//an led anzeigen
 

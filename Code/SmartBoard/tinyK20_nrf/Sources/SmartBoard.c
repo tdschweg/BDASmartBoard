@@ -25,6 +25,33 @@
 #include "ProximityDetectorBEnable.h"
 #include "ProximityDetectorCEnable.h"
 
+/*
+ * Initialisierung: Alle Keyfinder sind Default mässig eingeschaltet
+ * FALSE = Keyfinder Disable
+ * TRUE = Keyfinder Enable
+ */
+static bool PL_CONFIG_HAS_KEYFINDER_A = TRUE;
+static bool PL_CONFIG_HAS_KEYFINDER_B = TRUE;
+static bool PL_CONFIG_HAS_KEYFINDER_C = TRUE;
+static bool PL_CONFIG_HAS_KEYFINDER_D = TRUE;
+
+/*
+ * Keyfinder Nr
+ * 0 = Keyfinder A
+ * 1 = Keyfinder B
+ * 2 = Keyfinder C
+ * 3 = Keyfinder D
+ */
+uint8_t Keyfinder_Function_Nr = KEYFINDER_NONE;
+
+/*
+ * Keyfinder Function State
+ * 0x80 = Keyfinder on
+ * 0x00 = Keyfinder off
+ * 0x01 = Keyfinder idle
+ */
+uint8_t Keyfinder_Function_State = KEYFINDER_IDLE;
+
 
 /*
  * Light Detector Evaluation
@@ -43,7 +70,7 @@ void PowerModeProximityDetector(bool state){
 
 
 /*
- *
+ * LED Visualization
  */
 void LEDVisualisation(uint8_t LED_Nr, bool state){
 	switch(LED_Nr){
@@ -61,10 +88,87 @@ void LEDVisualisation(uint8_t LED_Nr, bool state){
  */
 static void InitButtonTask(void *pvParameters){
 	(void)pvParameters; /* not used */
+	/*
+	 * Initialisierung: Alle Keyfinder sind Default mässig eingeschaltet
+	 * 0 = Keyfinder Disable
+	 * 1 = Keyfinder Enable
+	 */
 	for(;;){
-		LEDB_Neg();
-		FRTOS1_vTaskDelay(5000/portTICK_PERIOD_MS);
+		if(InitButton_GetVal()){
+			PL_CONFIG_HAS_KEYFINDER_A = FALSE;
+			PL_CONFIG_HAS_KEYFINDER_B = FALSE;
+			PL_CONFIG_HAS_KEYFINDER_C = FALSE;
+			PL_CONFIG_HAS_KEYFINDER_D = FALSE;
+
+			while(InitButton_GetVal()){
+				//Proximity Detector A
+				if(ProximityDetectorA_GetVal() || PL_CONFIG_HAS_KEYFINDER_A==TRUE){
+					PL_CONFIG_HAS_KEYFINDER_A = TRUE;
+					LEDVisualisation(KEYFINDER_A, TRUE);
+				}
+				else{
+					PL_CONFIG_HAS_KEYFINDER_A = FALSE;
+					LEDVisualisation(KEYFINDER_A, FALSE);
+				}
+				//Proximity Detector B
+				if(ProximityDetectorB_GetVal() || PL_CONFIG_HAS_KEYFINDER_B==TRUE){
+					PL_CONFIG_HAS_KEYFINDER_B = TRUE;
+					LEDVisualisation(KEYFINDER_B, TRUE);
+				}
+				else{
+					PL_CONFIG_HAS_KEYFINDER_B = FALSE;
+					LEDVisualisation(KEYFINDER_B, FALSE);
+				}
+				//Proximity Detector C
+				if(ProximityDetectorC_GetVal() || PL_CONFIG_HAS_KEYFINDER_C==TRUE){
+					PL_CONFIG_HAS_KEYFINDER_C = TRUE;
+					LEDVisualisation(KEYFINDER_C, TRUE);
+				}
+				else{
+					PL_CONFIG_HAS_KEYFINDER_C = FALSE;
+					LEDVisualisation(KEYFINDER_C, FALSE);
+				}
+				//Proximity Detector D
+				if(ProximityDetectorD_GetVal() || PL_CONFIG_HAS_KEYFINDER_D==TRUE){
+					PL_CONFIG_HAS_KEYFINDER_D = TRUE;
+					LEDVisualisation(KEYFINDER_D, TRUE);
+				}
+				else{
+					PL_CONFIG_HAS_KEYFINDER_D = FALSE;
+					LEDVisualisation(KEYFINDER_D, FALSE);
+				}
+			}
+		}
+		FRTOS1_vTaskDelay(1000/portTICK_PERIOD_MS);
 	}
+}
+
+
+/*
+* Set Keyfinder Function
+* Critical Section
+*/
+void setKeyfinderFuction(uint8_t Keyfinder_Nr, uint8_t Keyfinder_state){
+	EnterCritical();
+	Keyfinder_Function_Nr = Keyfinder_Nr;
+	Keyfinder_Function_State = Keyfinder_state;
+	ExitCritical();
+}
+
+
+/*
+* Get Keyfinder Function Keyfinder Nr
+*/
+uint8_t getKeyfinderFunctionNr(void){
+	return Keyfinder_Function_Nr;
+}
+
+
+/*
+* Get Keyfinder Function Keyfinder state
+*/
+uint8_t getKeyfinderFunctionState(void){
+	return Keyfinder_Function_State;
 }
 
 
@@ -73,20 +177,14 @@ static void InitButtonTask(void *pvParameters){
  */
 static void KeyfinderFunctionDetectorTask(void *pvParameters){
 	(void)pvParameters; /* not used */
+	//proximity detector init
 	for(;;){
-		LEDA_Neg();
-		FRTOS1_vTaskDelay(5000/portTICK_PERIOD_MS);
-	}
-}
-
-
-/*
- * Battery Evaluation Task
- */
-static void BatteryEvaluationTask(void *pvParameters){
-	(void)pvParameters; /* not used */
-	for(;;){
-		LEDC_Neg();
+		if(ProximityDetectorA_GetVal()){
+			setKeyfinderFuction(KEYFINDER_B, KEYFINDER_ON);
+		}
+		else{
+			setKeyfinderFuction(KEYFINDER_B, KEYFINDER_OFF);
+		}
 		FRTOS1_vTaskDelay(5000/portTICK_PERIOD_MS);
 	}
 }
@@ -121,25 +219,6 @@ void KeyfinderFunctionDetectorInit(void){
 	        configMINIMAL_STACK_SIZE, /* task stack size */
 	        (void*)NULL, /* optional task startup argument */
 	        tskIDLE_PRIORITY+2,  /* initial priority +2 */
-	        (xTaskHandle*)NULL /* optional task handle to create */
-	      ) != pdPASS) {
-	    /*lint -e527 */
-	    for(;;){}; /* error! probably out of memory */
-	    /*lint +e527 */
-	  }
-}
-
-
-/*
- * Create Battery Evaluation Task
- */
-void BatteryEvaluationInit(void){
-	  if (FRTOS1_xTaskCreate(
-			BatteryEvaluationTask,  /* pointer to the task */
-	        "BatEva", /* task name for kernel awareness debugging */
-	        configMINIMAL_STACK_SIZE, /* task stack size */
-	        (void*)NULL, /* optional task startup argument */
-	        tskIDLE_PRIORITY+1,  /* initial priority +2 */
 	        (xTaskHandle*)NULL /* optional task handle to create */
 	      ) != pdPASS) {
 	    /*lint -e527 */

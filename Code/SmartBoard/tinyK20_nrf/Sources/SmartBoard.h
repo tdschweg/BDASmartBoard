@@ -10,18 +10,44 @@
 
 #include "PE_Types.h"
 
+/*
+ * Light Detector Evaluation
+ */
 bool LightDetectorEvaluation(void);
 
+/*
+ * Power Mode Proximity Detector
+ */
 void PowerModeProximityDetector(bool state);
 
-//uint8_t PoolEvaluation(void);
-
+/*
+ * LED Visualization
+ */
 void LEDVisualisation(uint8_t LED_Nr, bool state);
 
+/*
+ * Create Init Button Task
+ */
 void InitButtonInit(void);
 
-void KeyfinderFunctionDetectorInit(void);
+/*
+ * Set Keyfinder Function
+ */
+void setKeyfinderFuction(uint8_t Keyfinder_Nr, uint8_t Keyfinder_state);
 
-void BatteryEvaluationInit(void);
+/*
+ * Get Keyfinder Function Keyfinder Nr
+ */
+uint8_t getKeyfinderFunctionNr(void);
+
+/*
+ * Get Keyfinder Function Keyfinder state
+ */
+uint8_t getKeyfinderFunctionState(void);
+
+/*
+ * Create Keyfinder Function Detector Task
+ */
+void KeyfinderFunctionDetectorInit(void);
 
 #endif /* SOURCES_SMARTBOARD_H_ */

@@ -45,7 +45,6 @@ void APP_Run(void) {
 #if !PL_CONFIG_IS_KEYFINDER
   InitButtonInit();
   KeyfinderFunctionDetectorInit();
-  BatteryEavaluationInit();
 #endif
 #if PL_CONFIG_HAS_DUMMY_LED
   if (xTaskCreate(led_task, "Led", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {

@@ -9,24 +9,13 @@
 #define SOURCES_PLATFORM_LOCAL_H_
 
 #include <stdint.h>
+#include "PE_Types.h"
 
 /*
  * 0 = SmartBoard
  * 1 = Keyfinder
  */
 #define PL_CONFIG_IS_KEYFINDER	  0
-
-#define KEYFINDER_NONE			  4
-
-/*
- * Initialisierung: Alle Keyfinder sind Default mässig eingeschaltet
- * 0 = Keyfinder Disable
- * 1 = Keyfinder Enable
- */
-#define PL_CONFIG_HAS_KEYFINDER_A  1
-#define PL_CONFIG_HAS_KEYFINDER_B  1
-#define PL_CONFIG_HAS_KEYFINDER_C  1
-#define PL_CONFIG_HAS_KEYFINDER_D  1
 
 /*
  * Default
