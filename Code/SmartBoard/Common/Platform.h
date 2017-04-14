@@ -19,19 +19,17 @@
  * 2 = Keyfinder C
  * 3 = Keyfinder D
  */
-#define KEYFINDER_A	  			  0
-#define KEYFINDER_B	  			  1
-#define KEYFINDER_C	  			  2
-#define KEYFINDER_D	  			  3
+#define KEYFINDER_A	  				0
+#define KEYFINDER_B					1
+#define KEYFINDER_C					2
+#define KEYFINDER_D					3
 
 /*
  * STATE:
  * 0x80 = Keyfinder on
  * 0x00 = Keyfinder off
- * 0x01 = Keyfinder idle
  */
-#define KEYFINDER_ON			  8
-#define KEYFINDER_OFF			  0
-#define KEYFINDER_IDLE			  1
+#define KEYFINDER_ON				8
+#define KEYFINDER_OFF				0
 
 #endif /* SOURCES_PLATFORM_H_ */

@@ -155,6 +155,7 @@ static void Init(void) {
 
 static portTASK_FUNCTION(RadioTask, pvParameters) {
 	uint8_t msg;
+	uint8_t msgnr, msgbefehl, msgprogress;
 	(void)pvParameters; /* not used */
 	Init();
 	appState = RNETA_NONE;
@@ -193,12 +194,25 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 /*
  *
  */
-		if(LightDetectorEvaluation() && getKeyfinderFunctionState() != KEYFINDER_IDLE){
+
+
+		if(LightDetectorEvaluation() && getKeyfinderFunctionProgress()==TODO){
 			Process();
-			msg = getKeyfinderFunctionNr() | getKeyfinderFunctionState();
+			msgnr = getKeyfinderFunctionNr();
+			msgbefehl=getKeyfinderFunctionState(getKeyfinderFunctionNr());
+			msgprogress = getKeyfinderFunctionProgress();
+
+			msg = getKeyfinderFunctionNr() | getKeyfinderFunctionState(getKeyfinderFunctionNr());
 			RAPP_SendPayloadDataBlock(&msg, sizeof(msg), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
-			setKeyfinderFuction(getKeyfinderFunctionNr(), KEYFINDER_IDLE);
-			LED1_Neg();
+			setKeyfinderFuction(getKeyfinderFunctionNr(), getKeyfinderFunctionState(getKeyfinderFunctionNr()), DONE);
+
+			if(msgbefehl==KEYFINDER_ON){
+				LED1_On();
+			}
+			else{
+				LED1_Off();
+			}
+			Process();
 		}
 #endif
     //Go into Low Power Mode
