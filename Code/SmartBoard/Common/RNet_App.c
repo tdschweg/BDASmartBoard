@@ -171,7 +171,7 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
  * SmartBoard Radio Task
  */
 #if !PL_CONFIG_IS_KEYFINDER
-		//Light Detector
+		//Light Detector, Done
 		//Proximity power mode
 		//Schalen auswertung; Rückgabewert (0=kein, 1, 2, 3, 4) welcher Keyfinder muss angepingt werden
 		//an led anzeigen
@@ -203,7 +203,7 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 #endif
     //Go into Low Power Mode
 
-    FRTOS1_vTaskDelay(1000/portTICK_PERIOD_MS);
+    FRTOS1_vTaskDelay(500/portTICK_PERIOD_MS);
 	}
 }
 
@@ -221,7 +221,7 @@ void RNETA_Init(void) {
         "Radio", /* task name for kernel awareness debugging */
         configMINIMAL_STACK_SIZE+200, /* task stack size */
         (void*)NULL, /* optional task startup argument */
-        tskIDLE_PRIORITY+2,  /* initial priority +2 */
+        tskIDLE_PRIORITY+1,  /* initial priority +2 */
         (xTaskHandle*)NULL /* optional task handle to create */
       ) != pdPASS) {
     /*lint -e527 */

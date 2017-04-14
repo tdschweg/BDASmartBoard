@@ -31,6 +31,16 @@ void LEDVisualisation(uint8_t LED_Nr, bool state);
 void InitButtonInit(void);
 
 /*
+ * Proximity Detector Init
+ */
+void ProximityDetectorInit(void);
+
+/*
+ * Proximity Detector Deinit
+ */
+void ProximityDetectorDeinit(void);
+
+/*
  * Set Keyfinder Function
  */
 void setKeyfinderFuction(uint8_t Keyfinder_Nr, uint8_t Keyfinder_state);

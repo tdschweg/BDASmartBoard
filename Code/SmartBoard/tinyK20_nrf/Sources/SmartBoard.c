@@ -24,6 +24,7 @@
 #include "ProximityDetectorAEnable.h"
 #include "ProximityDetectorBEnable.h"
 #include "ProximityDetectorCEnable.h"
+#include "ProximityDetectorDEnable.h"
 
 /*
  * Initialisierung: Alle Keyfinder sind Default mässig eingeschaltet
@@ -139,8 +140,57 @@ static void InitButtonTask(void *pvParameters){
 				}
 			}
 		}
+		//Go into Low Power Mode
+
 		FRTOS1_vTaskDelay(1000/portTICK_PERIOD_MS);
 	}
+}
+
+
+/*
+ * Proximity Detector Init
+ */
+void ProximityDetectorInit(void){
+	uint16_t proximity_delay = 1000;
+	bool ProximityDetectorAInit = FALSE;
+	bool ProximityDetectorBInit = FALSE;
+	bool ProximityDetectorCInit = FALSE;
+	bool ProximityDetectorDInit = FALSE;
+
+	//Proximity Detector A init
+	while(ProximityDetectorAInit==FALSE){
+		ProximityDetectorAEnable_SetVal();
+		WAIT1_Waitms(proximity_delay);
+		//Proximity Detector not init yet
+		if(!ProximityDetectorA_GetVal()){
+			ProximityDetectorAEnable_ClrVal();
+			LEDVisualisation(KEYFINDER_A, ProximityDetectorAInit);
+			WAIT1_Waitms(proximity_delay);
+		}
+		//Proximity Detector init
+		else{
+			ProximityDetectorAInit = TRUE;
+			LEDVisualisation(KEYFINDER_A, ProximityDetectorAInit);
+		}
+	}
+
+
+
+
+
+
+
+}
+
+
+/*
+ * Proximity Detector Deinit
+ */
+void ProximityDetectorDeinit(void){
+	ProximityDetectorAEnable_ClrVal();
+	ProximityDetectorBEnable_ClrVal();
+	ProximityDetectorCEnable_ClrVal();
+	ProximityDetectorDEnable_ClrVal();
 }
 
 
@@ -177,15 +227,28 @@ uint8_t getKeyfinderFunctionState(void){
  */
 static void KeyfinderFunctionDetectorTask(void *pvParameters){
 	(void)pvParameters; /* not used */
-	//proximity detector init
 	for(;;){
-		if(ProximityDetectorA_GetVal()){
-			setKeyfinderFuction(KEYFINDER_B, KEYFINDER_ON);
+		if(PL_CONFIG_HAS_KEYFINDER_A){
+			if(!ProximityDetectorA_GetVal()){
+				setKeyfinderFuction(KEYFINDER_A, KEYFINDER_ON);
+			}
+			else{
+				setKeyfinderFuction(KEYFINDER_A, KEYFINDER_OFF);
+			}
 		}
-		else{
-			setKeyfinderFuction(KEYFINDER_B, KEYFINDER_OFF);
+		if(PL_CONFIG_HAS_KEYFINDER_B){
+
 		}
-		FRTOS1_vTaskDelay(500/portTICK_PERIOD_MS);
+		if(PL_CONFIG_HAS_KEYFINDER_C){
+
+		}
+		if(PL_CONFIG_HAS_KEYFINDER_D){
+
+		}
+
+		//Go into Low Power Mode
+
+		FRTOS1_vTaskDelay(250/portTICK_PERIOD_MS);
 	}
 }
 

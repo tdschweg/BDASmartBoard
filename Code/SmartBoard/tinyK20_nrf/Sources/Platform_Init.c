@@ -10,6 +10,7 @@
 #include "LEDB.h"
 #include "LEDC.h"
 #include "LEDD.h"
+#include "SmartBoard.h"
 
 
 void platform_Init(void){
@@ -19,6 +20,8 @@ void platform_Init(void){
 	LEDB_Init();
 	LEDC_Init();
 	LEDD_Init();
+	//Proximity Detector Init
+	ProximityDetectorInit();
 }
 
 void platform_Deinit(void){
@@ -28,6 +31,8 @@ void platform_Deinit(void){
 	LEDB_Deinit();
 	LEDC_Deinit();
 	LEDD_Deinit();
+	//Proximity Detector Deinit
+	ProximityDetectorDeinit();
 }
 
 
