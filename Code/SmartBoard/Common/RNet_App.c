@@ -216,7 +216,7 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 		}
 #endif
     //Go into Low Power Mode
-
+	//TODO
     FRTOS1_vTaskDelay(500/portTICK_PERIOD_MS);
 	}
 }

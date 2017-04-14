@@ -33,6 +33,7 @@
 #define ProximityDetectorState_2	2
 #define ProximityDetectorState_3	3
 #define ProximityDetectorState_4	4
+#define Timeout						10
 
 /*
  * Default

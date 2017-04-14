@@ -114,10 +114,17 @@ static void InitButtonTask(void *pvParameters){
 	(void)pvParameters; /* not used */
 	for(;;){
 		if(InitButton_GetVal() && LightDetectorEvaluation()){
+			//Deactivate all Proximity Detectors
 			PL_CONFIG_HAS_KEYFINDER_A = FALSE;
 			PL_CONFIG_HAS_KEYFINDER_B = FALSE;
 			PL_CONFIG_HAS_KEYFINDER_C = FALSE;
 			PL_CONFIG_HAS_KEYFINDER_D = FALSE;
+
+			//Before Initialization all LED are off
+			LEDVisualisation(KEYFINDER_A, FALSE);
+			LEDVisualisation(KEYFINDER_B, FALSE);
+			LEDVisualisation(KEYFINDER_C, FALSE);
+			LEDVisualisation(KEYFINDER_D, FALSE);
 
 			while(InitButton_GetVal()){
 				//Proximity Detector A
@@ -398,9 +405,11 @@ void ProximityDetectorEvaluation(uint8_t Keyfinder_Nr){
 			//Action, Double Click detected
 			if(getKeyfinderFunctionState(Keyfinder_Nr)==KEYFINDER_OFF){
 				setKeyfinderFuction(Keyfinder_Nr, KEYFINDER_ON, TODO);
+				LEDVisualisation(Keyfinder_Nr, TRUE);
 			}
 			else if(getKeyfinderFunctionState(Keyfinder_Nr)==KEYFINDER_ON){
 				setKeyfinderFuction(Keyfinder_Nr, KEYFINDER_OFF, TODO);
+				LEDVisualisation(Keyfinder_Nr, FALSE);
 			}
 		}
 		else{
@@ -414,7 +423,7 @@ void ProximityDetectorEvaluation(uint8_t Keyfinder_Nr){
 	break;
 	}
 	//Timeout von 2.5s = 10 * 250ms
-	if(getProximityDetectorTimeout(Keyfinder_Nr)>10){
+	if(getProximityDetectorTimeout(Keyfinder_Nr) > Timeout){
 		setProximityDetectorState(Keyfinder_Nr, ProximityDetectorState_IDLE);
 		setProximityDetectorTimeout(Keyfinder_Nr, 0);
 	}
@@ -426,7 +435,6 @@ void ProximityDetectorEvaluation(uint8_t Keyfinder_Nr){
  */
 static void KeyfinderFunctionDetectorTask(void *pvParameters){
 	(void)pvParameters; /* not used */
-	/* need to ensure that we wait 100 ms after power-on of the transceiver */
 	portTickType xTime;
 	for(;;){
 		if(PL_CONFIG_HAS_KEYFINDER_A){
