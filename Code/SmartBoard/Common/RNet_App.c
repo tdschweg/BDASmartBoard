@@ -154,26 +154,29 @@ static void Init(void) {
 }
 
 static portTASK_FUNCTION(RadioTask, pvParameters) {
-	uint32_t cntr;
 	uint8_t msg;
-	uint8_t dongle=0;
-
 	(void)pvParameters; /* not used */
 	Init();
 	appState = RNETA_NONE;
 	for(;;) {
-		Process(); /* process radio in/out queues */
 
 /*
- * SmartBoard TASK
+ * Keyfinder Radio Task
+ */
+#if PL_CONFIG_IS_KEYFINDER
+		Process(); /* process radio in/out queues */
+#endif
+
+/*
+ * SmartBoard Radio Task
  */
 #if !PL_CONFIG_IS_KEYFINDER
 		//Light Detector
-
 		//Proximity power mode
-
 		//Schalen auswertung; Rückgabewert (0=kein, 1, 2, 3, 4) welcher Keyfinder muss angepingt werden
-
+		//an led anzeigen
+    	//Initialisierungs Button
+    	//Bat Kon
 		/*
 		cntr++;
     	if (cntr==4) { //with an RTOS 10 ms/100 Hz tick rate, this is every second
@@ -186,20 +189,17 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
     			dongle = 0;
     		}
     		*/
+
+/*
+ *
+ */
+		if(LightDetectorEvaluation() && getKeyfinderFunctionState() != KEYFINDER_IDLE){
+			Process();
 			msg = getKeyfinderFunctionNr() | getKeyfinderFunctionState();
-    		RAPP_SendPayloadDataBlock(&msg, sizeof(msg), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
-    		//setKeyfinderFuction(getKeyfinderFunctionNr(), KEYFINDER_IDLE);
-    		//cntr = 0;
-    		LED1_Neg();
-    	//}
-    	//*/
-
-		//an led anzeigen
-
-    	//Initialisierungs Button
-
-    	//Bat Kon
-
+			RAPP_SendPayloadDataBlock(&msg, sizeof(msg), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
+			setKeyfinderFuction(getKeyfinderFunctionNr(), KEYFINDER_IDLE);
+			LED1_Neg();
+		}
 #endif
     //Go into Low Power Mode
 

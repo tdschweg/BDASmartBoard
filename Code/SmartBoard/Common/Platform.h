@@ -18,13 +18,11 @@
  * 1 = Keyfinder B
  * 2 = Keyfinder C
  * 3 = Keyfinder D
- * 4 = Keyfinder None
  */
 #define KEYFINDER_A	  			  0
 #define KEYFINDER_B	  			  1
 #define KEYFINDER_C	  			  2
 #define KEYFINDER_D	  			  3
-#define KEYFINDER_NONE			  4
 
 /*
  * STATE:

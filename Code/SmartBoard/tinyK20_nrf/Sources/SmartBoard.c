@@ -42,15 +42,15 @@ static bool PL_CONFIG_HAS_KEYFINDER_D = TRUE;
  * 2 = Keyfinder C
  * 3 = Keyfinder D
  */
-uint8_t Keyfinder_Function_Nr = KEYFINDER_NONE;
+static uint8_t Keyfinder_Function_Nr = KEYFINDER_A;
 
 /*
  * Keyfinder Function State
- * 0x80 = Keyfinder on
+ * 0x08 = Keyfinder on
  * 0x00 = Keyfinder off
  * 0x01 = Keyfinder idle
  */
-uint8_t Keyfinder_Function_State = KEYFINDER_IDLE;
+static uint8_t Keyfinder_Function_State = KEYFINDER_IDLE;
 
 
 /*
@@ -94,7 +94,7 @@ static void InitButtonTask(void *pvParameters){
 	 * 1 = Keyfinder Enable
 	 */
 	for(;;){
-		if(InitButton_GetVal()){
+		if(InitButton_GetVal() && LightDetectorEvaluation()){
 			PL_CONFIG_HAS_KEYFINDER_A = FALSE;
 			PL_CONFIG_HAS_KEYFINDER_B = FALSE;
 			PL_CONFIG_HAS_KEYFINDER_C = FALSE;
@@ -185,7 +185,7 @@ static void KeyfinderFunctionDetectorTask(void *pvParameters){
 		else{
 			setKeyfinderFuction(KEYFINDER_B, KEYFINDER_OFF);
 		}
-		FRTOS1_vTaskDelay(5000/portTICK_PERIOD_MS);
+		FRTOS1_vTaskDelay(500/portTICK_PERIOD_MS);
 	}
 }
 
