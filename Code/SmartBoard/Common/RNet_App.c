@@ -195,9 +195,10 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
  *
  */
 
+		Process();
 
 		if(LightDetectorEvaluation() && getKeyfinderFunctionProgress()==TODO){
-			Process();
+
 			msgnr = getKeyfinderFunctionNr();
 			msgbefehl=getKeyfinderFunctionState(getKeyfinderFunctionNr());
 			msgprogress = getKeyfinderFunctionProgress();
@@ -212,7 +213,6 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 			else{
 				LED1_Off();
 			}
-			Process();
 		}
 #endif
     //Go into Low Power Mode
