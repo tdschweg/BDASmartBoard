@@ -1,0 +1,74 @@
+*************************************************************
+FileName = Keyfinder.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Layer
+      File : Keyfinder.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : Keyfinder.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D14
+    D16
+    D17
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : Keyfinder.GM1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D17
+*************************************************************
+
