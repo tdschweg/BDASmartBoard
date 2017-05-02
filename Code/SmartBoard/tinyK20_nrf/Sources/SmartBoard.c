@@ -81,7 +81,7 @@ static uint8_t ProximityDetectorD_Timeout=0;
  * Light Detector Evaluation
  */
 bool LightDetectorEvaluation(void){
-	return LightDetector_GetVal();
+	return !LightDetector_GetVal(); //Lichtsensor funktioniert noch nicht, am schluss ! schneiden
 }
 
 
@@ -164,14 +164,12 @@ static void InitButtonTask(void *pvParameters){
 					LEDVisualisation(KEYFINDER_D, FALSE);
 				}
 			}
-		}
-
 		//After Initialization all LED are off
 		LEDVisualisation(KEYFINDER_A, FALSE);
 		LEDVisualisation(KEYFINDER_B, FALSE);
 		LEDVisualisation(KEYFINDER_C, FALSE);
 		LEDVisualisation(KEYFINDER_D, FALSE);
-
+		}
 		//Go into Low Power Mode
 		//TODO
 		FRTOS1_vTaskDelay(1000/portTICK_PERIOD_MS);
@@ -204,8 +202,8 @@ void ProximityDetectorInit(void){
 		}
 		//Proximity Detector init
 		else{
+			LEDVisualisation(KEYFINDER_A, FALSE);
 			ProximityDetectorAInit = TRUE;
-			LEDVisualisation(KEYFINDER_A, ProximityDetectorAInit);
 		}
 	}
 
