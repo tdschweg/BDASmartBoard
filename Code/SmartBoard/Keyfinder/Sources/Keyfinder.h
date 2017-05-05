@@ -10,6 +10,10 @@
 
 #include "PE_Types.h"
 
+void setBuzzerState(bool state);
+
+bool getBuzzerState(void);
+
 void KeyfinderAlert(bool state);
 
 void KeyfinderBatEvalutaionInit(void);

@@ -28,11 +28,13 @@
 
 #include "Cpu.h"
 #include "Events.h"
+#include "Keyfinder.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif 
 
+static int alert_cnt=0;
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
@@ -164,6 +166,53 @@ void FRTOS1_vApplicationMallocFailedHook(void)
 void SM1_OnRxCharExt(SM1_TComData Chr)
 {
   /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  TU1_OnCounterRestart (module Events)
+**
+**     Component   :  TU1 [TimerUnit_LDD]
+*/
+/*!
+**     @brief
+**         Called if counter overflow/underflow or counter is
+**         reinitialized by modulo or compare register matching.
+**         OnCounterRestart event and Timer unit must be enabled. See
+**         [SetEventMask] and [GetEventMask] methods. This event is
+**         available only if a [Interrupt] is enabled.
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. The pointer passed as
+**                           the parameter of Init method.
+*/
+/* ===================================================================*/
+void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
+{
+  /* Write your code here ... */
+	//ALERT On (0.5 Hz)
+	if(getBuzzerState() == TRUE){
+		if(alert_cnt<2700){
+			LED1_On();
+			ALERT_LED_On();
+			ALERT_BUZZER_Neg();
+		}
+		else{
+			LED1_Off();
+			ALERT_LED_Off();
+			ALERT_BUZZER_Off();
+		}
+		if(alert_cnt>5400){
+			alert_cnt=0;
+		}
+		else{
+			alert_cnt++;
+		}
+	//ALERT Off
+	}else{
+		ALERT_BUZZER_Off();
+	}
+
 }
 
 /* END Events */

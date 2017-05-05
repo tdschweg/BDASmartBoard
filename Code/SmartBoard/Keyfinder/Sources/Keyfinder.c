@@ -15,25 +15,42 @@
 #include "ALERT_BUZZER.h"
 #include "BAT_KON.h"
 
+
+/*
+ * Keyfinder Alert
+ */
+static bool buzzer_state = FALSE;
+
+void setBuzzerState(bool state){
+	buzzer_state = state;
+}
+
+bool getBuzzerState(void){
+	return buzzer_state;
+}
+
 void KeyfinderAlert(bool state){
 	//Keyfinder wird angepingt
 	if(state==1){
-		LED1_On();
-		ALERT_LED_On();
-		ALERT_BUZZER_SetVal();
+		setBuzzerState(TRUE);
 	}
 	else{
+		setBuzzerState(FALSE);
 		LED1_Off();
 		ALERT_LED_Off();
-		ALERT_BUZZER_ClrVal();
+		ALERT_BUZZER_Off();
 	}
 }
 
+
+/*
+ * Keyfinder Battery Evaluation Task
+ */
 static void KeyfinderBatEvaluationTask(void *pvParameters){
 	(void)pvParameters; /* not used */
 	for(;;){
 		//Batteriekontrolle Auswertung
-		if(BAT_KON_GetVal()){
+		if(!BAT_KON_GetVal()){
 			BAT_KON_LED_On();
 		}
 		else{

@@ -54,7 +54,9 @@
 #include "LEDpin3.h"
 #include "BitIoLdd5.h"
 #include "ALERT_BUZZER.h"
-#include "BitIoLdd6.h"
+#include "LEDpin4.h"
+#include "BitIoLdd8.h"
+#include "TU1.h"
 #include "BAT_KON.h"
 #include "BitIoLdd7.h"
 #include "FRTOS1.h"
@@ -165,6 +167,27 @@ void SM1_OnRxCharExt(SM1_TComData Chr);
 **     Returns     : Nothing
 ** ===================================================================
 */
+
+/*
+** ===================================================================
+**     Event       :  TU1_OnCounterRestart (module Events)
+**
+**     Component   :  TU1 [TimerUnit_LDD]
+*/
+/*!
+**     @brief
+**         Called if counter overflow/underflow or counter is
+**         reinitialized by modulo or compare register matching.
+**         OnCounterRestart event and Timer unit must be enabled. See
+**         [SetEventMask] and [GetEventMask] methods. This event is
+**         available only if a [Interrupt] is enabled.
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. The pointer passed as
+**                           the parameter of Init method.
+*/
+/* ===================================================================*/
+void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr);
 
 /* END Events */
 

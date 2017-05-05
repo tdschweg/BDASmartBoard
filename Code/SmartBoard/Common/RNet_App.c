@@ -81,10 +81,9 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
 * Keyfinder TASK
 */
     case RAPP_MSG_TYPE_PING:
-#if PL_CONFIG_IS_KEYFINDER
     	*handled = TRUE;
     	val = *data; /* get data value */
-
+#if PL_CONFIG_IS_KEYFINDER
     	keyfinder = val & 0x07;
 		alert_state = (val & KEYFINDER_ON) >> 3;
 
@@ -94,7 +93,7 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
 		}
 		//Schwarm Denken
 		else{
-			RAPP_SendPayloadDataBlock(&val, sizeof(val), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
+			//RAPP_SendPayloadDataBlock(&val, sizeof(val), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
 		}
 #endif
     return ERR_OK;
