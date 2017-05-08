@@ -177,28 +177,6 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
  * SmartBoard Radio Task
  */
 #if !PL_CONFIG_IS_KEYFINDER
-		//Light Detector, Done
-		//Proximity power mode
-		//Schalen auswertung; Rückgabewert (0=kein, 1, 2, 3, 4) welcher Keyfinder muss angepingt werden
-		//an led anzeigen
-    	//Initialisierungs Button
-    	//Bat Kon
-		/*
-		cntr++;
-    	if (cntr==4) { //with an RTOS 10 ms/100 Hz tick rate, this is every second
-    		if(dongle==0){
-    			msg = KEYFINDER_B | KEYFINDER_ON;
-    			dongle = 1;
-    		}
-    		else{
-    			msg = KEYFINDER_B | KEYFINDER_OFF;
-    			dongle = 0;
-    		}
-    		*/
-
-/*
- *
- */
 
 		Process();
 
@@ -221,7 +199,6 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 		}
 #endif
     //Go into Low Power Mode
-	//TODO
     FRTOS1_vTaskDelay(500/portTICK_PERIOD_MS);
 	}
 }

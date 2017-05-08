@@ -31,10 +31,10 @@
  * FALSE = Keyfinder Disable
  * TRUE  = Keyfinder Enable
  */
-static bool PL_CONFIG_HAS_KEYFINDER_A = TRUE;
-static bool PL_CONFIG_HAS_KEYFINDER_B = FALSE;
-static bool PL_CONFIG_HAS_KEYFINDER_C = FALSE;
-static bool PL_CONFIG_HAS_KEYFINDER_D = FALSE;
+static bool PL_CONFIG_HAS_KEYFINDER_A = FALSE; //TRUE
+static bool PL_CONFIG_HAS_KEYFINDER_B = FALSE; //TRUE
+static bool PL_CONFIG_HAS_KEYFINDER_C = FALSE; //TRUE
+static bool PL_CONFIG_HAS_KEYFINDER_D = TRUE; //TRUE
 
 /*
  * Keyfinder Nr
@@ -81,7 +81,7 @@ static uint8_t ProximityDetectorD_Timeout=0;
  * Light Detector Evaluation
  */
 bool LightDetectorEvaluation(void){
-	return !LightDetector_GetVal(); //Lichtsensor funktioniert noch nicht, am schluss ! schneiden
+	return !LightDetector_GetVal();
 }
 
 
@@ -171,7 +171,6 @@ static void InitButtonTask(void *pvParameters){
 		LEDVisualisation(KEYFINDER_D, FALSE);
 		}
 		//Go into Low Power Mode
-		//TODO
 		FRTOS1_vTaskDelay(1000/portTICK_PERIOD_MS);
 	}
 }
@@ -191,13 +190,13 @@ void ProximityDetectorInit(void){
 	PowerModeProximityDetector(TRUE);
 
 	//Proximity Detector A init
-	while(ProximityDetectorAInit==FALSE){
+	while(ProximityDetectorAInit==FALSE && PL_CONFIG_HAS_KEYFINDER_A==TRUE){
+		LEDVisualisation(KEYFINDER_A, TRUE);
 		ProximityDetectorAEnable_SetVal();
 		WAIT1_Waitms(proximity_delay);
 		//Proximity Detector not init yet
 		if(!ProximityDetectorA_GetVal()){
 			ProximityDetectorAEnable_ClrVal();
-			LEDVisualisation(KEYFINDER_A, ProximityDetectorAInit);
 			WAIT1_Waitms(proximity_delay);
 		}
 		//Proximity Detector init
@@ -207,12 +206,56 @@ void ProximityDetectorInit(void){
 		}
 	}
 
+	//Proximity Detector B init
+	while(ProximityDetectorBInit==FALSE && PL_CONFIG_HAS_KEYFINDER_B==TRUE){
+		LEDVisualisation(KEYFINDER_B, TRUE);
+		ProximityDetectorBEnable_SetVal();
+		WAIT1_Waitms(proximity_delay);
+		//Proximity Detector not init yet
+		if(!ProximityDetectorB_GetVal()){
+			ProximityDetectorBEnable_ClrVal();
+			WAIT1_Waitms(proximity_delay);
+		}
+		//Proximity Detector init
+		else{
+			LEDVisualisation(KEYFINDER_B, FALSE);
+			ProximityDetectorBInit = TRUE;
+		}
+	}
 
+	//Proximity Detector C init
+	while(ProximityDetectorCInit==FALSE && PL_CONFIG_HAS_KEYFINDER_C==TRUE){
+		LEDVisualisation(KEYFINDER_C, TRUE);
+		ProximityDetectorCEnable_SetVal();
+		WAIT1_Waitms(proximity_delay);
+		//Proximity Detector not init yet
+		if(!ProximityDetectorC_GetVal()){
+			ProximityDetectorCEnable_ClrVal();
+			WAIT1_Waitms(proximity_delay);
+		}
+		//Proximity Detector init
+		else{
+			LEDVisualisation(KEYFINDER_C, FALSE);
+			ProximityDetectorCInit = TRUE;
+		}
+	}
 
-
-
-
-
+	//Proximity Detector D init
+	while(ProximityDetectorDInit==FALSE && PL_CONFIG_HAS_KEYFINDER_D==TRUE){
+		LEDVisualisation(KEYFINDER_D, TRUE);
+		ProximityDetectorDEnable_SetVal();
+		WAIT1_Waitms(proximity_delay);
+		//Proximity Detector not init yet
+		if(!ProximityDetectorD_GetVal()){
+			ProximityDetectorDEnable_ClrVal();
+			WAIT1_Waitms(proximity_delay);
+		}
+		//Proximity Detector init
+		else{
+			LEDVisualisation(KEYFINDER_D, FALSE);
+			ProximityDetectorDInit = TRUE;
+		}
+	}
 }
 
 
@@ -449,7 +492,6 @@ static void KeyfinderFunctionDetectorTask(void *pvParameters){
 		}
 
 		//Go into Low Power Mode (tiny and mtch101)
-		//TODO
 		FRTOS1_vTaskDelay(250/portTICK_PERIOD_MS);
 	}
 }
