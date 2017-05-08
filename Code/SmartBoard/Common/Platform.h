@@ -12,7 +12,7 @@
 
 /*
  * KEYFINDER - Maske
- * Maske: STATE | NR
+ * Maske: STATE | Collective Intelligence | NR
  *
  * 0 = Keyfinder A
  * 1 = Keyfinder B
@@ -26,10 +26,18 @@
 
 /*
  * STATE:
- * 0x80 = Keyfinder on
+ * 0x08 = Keyfinder on
  * 0x00 = Keyfinder off
  */
 #define KEYFINDER_ON				8
 #define KEYFINDER_OFF				0
+
+/*
+ * Collective Intelligence
+ * 0x04 = Collective Intelligence on
+ * 0x00 = Collective Intelligence off
+ */
+#define CollectiveIntelligence_ON	4
+#define CollectiveIntelligence_OFF	0
 
 #endif /* SOURCES_PLATFORM_H_ */

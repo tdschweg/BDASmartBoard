@@ -53,7 +53,8 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
   CLS1_ConstStdIOTypePtr io = CLS1_GetStdio();
 #endif
   uint8_t val;
-  uint8_t keyfinder;
+  uint8_t keyfinder_nr;
+  uint8_t CollectiveIntelligence_state;
   uint8_t alert_state;
   
   (void)size;
@@ -84,16 +85,20 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
     	*handled = TRUE;
     	val = *data; /* get data value */
 #if PL_CONFIG_IS_KEYFINDER
-    	keyfinder = val & 0x07;
+    	keyfinder_nr = val & 0x03;
+    	CollectiveIntelligence_state = (val & KEYFINDER_ON) >> 2;
 		alert_state = (val & KEYFINDER_ON) >> 3;
 
 		//Keyfinder Alert
-		if(keyfinder == KEYFINDER_NR){
+		if(keyfinder_nr == KEYFINDER_NR){
 			KeyfinderAlert(alert_state);
 		}
 		//Schwarm Denken
 		else{
-			//RAPP_SendPayloadDataBlock(&val, sizeof(val), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
+			if(CollectiveIntelligence_state == CollectiveIntelligence_ON){
+				val = alert_state | CollectiveIntelligence_OFF | keyfinder_nr;
+				RAPP_SendPayloadDataBlock(&val, sizeof(val), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
+			}
 		}
 #endif
     return ERR_OK;
@@ -203,7 +208,7 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 			msgbefehl=getKeyfinderFunctionState(getKeyfinderFunctionNr());
 			msgprogress = getKeyfinderFunctionProgress();
 
-			msg = getKeyfinderFunctionNr() | getKeyfinderFunctionState(getKeyfinderFunctionNr());
+			msg = getKeyfinderFunctionState(getKeyfinderFunctionNr()) | CollectiveIntelligence_ON | getKeyfinderFunctionNr();
 			RAPP_SendPayloadDataBlock(&msg, sizeof(msg), RAPP_MSG_TYPE_PING, RNWK_ADDR_BROADCAST, RPHY_PACKET_FLAGS_REQ_ACK);
 			setKeyfinderFuction(getKeyfinderFunctionNr(), getKeyfinderFunctionState(getKeyfinderFunctionNr()), DONE);
 

@@ -119,6 +119,8 @@ void FRTOS1_vApplicationIdleHook(void)
   /* Called whenever the RTOS is idle (from the IDLE task).
      Here would be a good place to put the CPU into low power mode. */
   /* Write your code here ... */
+	//Go into low power mode
+	//Cpu_SetOperationMode(DOM_SLEEP, NULL, NULL);
 }
 
 /*
@@ -213,6 +215,64 @@ void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
 		ALERT_BUZZER_Off();
 	}
 
+}
+
+/*
+** ===================================================================
+**     Event       :  FRTOS1_vOnPreSleepProcessing (module Events)
+**
+**     Component   :  FRTOS1 [FreeRTOS]
+**     Description :
+**         Used in tickless idle mode only, but required in this mode.
+**         Hook for the application to enter low power mode.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         expectedIdleTicks - expected idle
+**                           time, in ticks
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FRTOS1_vOnPreSleepProcessing(portTickType expectedIdleTicks)
+{
+  (void)expectedIdleTicks; /* not used */
+#if 1
+  /* example for Kinetis (enable SetOperationMode() in CPU component): */
+  // Cpu_SetOperationMode(DOM_WAIT, NULL, NULL); /* Processor Expert way to get into WAIT mode */
+  /* or to wait for interrupt: */
+    __asm volatile("dsb");
+    __asm volatile("wfi");
+    __asm volatile("isb");
+#elif 0
+  /* example for S08/S12/ColdFire V1 (enable SetWaitMode() in CPU): */
+  Cpu_SetWaitMode();
+#elif 0
+  /* example for ColdFire V2: */
+   __asm("stop #0x2000"); */
+#else
+  #error "you *must* enter low power mode (wait for interrupt) here!"
+#endif
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  FRTOS1_vOnPostSleepProcessing (module Events)
+**
+**     Component   :  FRTOS1 [FreeRTOS]
+**     Description :
+**         Event called after the CPU woke up after low power mode.
+**         This event is optional.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         expectedIdleTicks - expected idle
+**                           time, in ticks
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FRTOS1_vOnPostSleepProcessing(portTickType expectedIdleTicks)
+{
+  (void)expectedIdleTicks; /* not used (yet?) */
+  /* Write your code here ... */
 }
 
 /* END Events */
