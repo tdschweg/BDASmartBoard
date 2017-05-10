@@ -31,9 +31,9 @@
  * FALSE = Keyfinder Disable
  * TRUE  = Keyfinder Enable
  */
-static bool PL_CONFIG_HAS_KEYFINDER_A = FALSE; //TRUE
-static bool PL_CONFIG_HAS_KEYFINDER_B = FALSE; //TRUE
-static bool PL_CONFIG_HAS_KEYFINDER_C = FALSE; //TRUE
+static bool PL_CONFIG_HAS_KEYFINDER_A = TRUE; //TRUE
+static bool PL_CONFIG_HAS_KEYFINDER_B = TRUE; //TRUE
+static bool PL_CONFIG_HAS_KEYFINDER_C = TRUE; //TRUE
 static bool PL_CONFIG_HAS_KEYFINDER_D = TRUE; //TRUE
 
 /*
@@ -128,7 +128,7 @@ static void InitButtonTask(void *pvParameters){
 
 			while(InitButton_GetVal()){
 				//Proximity Detector A
-				if(ProximityDetectorA_GetVal() || PL_CONFIG_HAS_KEYFINDER_A==TRUE){
+				if(!ProximityDetectorA_GetVal() || PL_CONFIG_HAS_KEYFINDER_A==TRUE){
 					PL_CONFIG_HAS_KEYFINDER_A = TRUE;
 					LEDVisualisation(KEYFINDER_A, TRUE);
 				}
@@ -137,7 +137,7 @@ static void InitButtonTask(void *pvParameters){
 					LEDVisualisation(KEYFINDER_A, FALSE);
 				}
 				//Proximity Detector B
-				if(ProximityDetectorB_GetVal() || PL_CONFIG_HAS_KEYFINDER_B==TRUE){
+				if(!ProximityDetectorB_GetVal() || PL_CONFIG_HAS_KEYFINDER_B==TRUE){
 					PL_CONFIG_HAS_KEYFINDER_B = TRUE;
 					LEDVisualisation(KEYFINDER_B, TRUE);
 				}
@@ -146,7 +146,7 @@ static void InitButtonTask(void *pvParameters){
 					LEDVisualisation(KEYFINDER_B, FALSE);
 				}
 				//Proximity Detector C
-				if(ProximityDetectorC_GetVal() || PL_CONFIG_HAS_KEYFINDER_C==TRUE){
+				if(!ProximityDetectorC_GetVal() || PL_CONFIG_HAS_KEYFINDER_C==TRUE){
 					PL_CONFIG_HAS_KEYFINDER_C = TRUE;
 					LEDVisualisation(KEYFINDER_C, TRUE);
 				}
@@ -155,7 +155,7 @@ static void InitButtonTask(void *pvParameters){
 					LEDVisualisation(KEYFINDER_C, FALSE);
 				}
 				//Proximity Detector D
-				if(ProximityDetectorD_GetVal() || PL_CONFIG_HAS_KEYFINDER_D==TRUE){
+				if(!ProximityDetectorD_GetVal() || PL_CONFIG_HAS_KEYFINDER_D==TRUE){
 					PL_CONFIG_HAS_KEYFINDER_D = TRUE;
 					LEDVisualisation(KEYFINDER_D, TRUE);
 				}
