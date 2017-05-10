@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
-NCDrill File Report For: Keyfinder.PcbDoc   11.04.2017  21:35:39
+NCDrill File Report For: Keyfinder.PcbDoc   10.05.2017  09:49:23
 ---------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -7,13 +7,11 @@ ASCII RoundHoles File : Keyfinder.TXT
 
 Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
 ---------------------------------------------------------------------------
-T1        24mil (0.6096mm)         Round          2                0.79 Inch (20.00 mm)
-T2        28mil (0.7112mm)         Round          5                1.12 Inch (28.39 mm)
-T3        31mil (0.7874mm)         Round          6                0.52 Inch (13.30 mm)
-T4        32mil (0.8128mm)         Round          32               3.60 Inch (91.44 mm)
-T5        35mil (0.889mm)          Round          8                0.70 Inch (17.78 mm)
-T6        118mil (2.9972mm)        Round          1                0.00 Inch (0.00 mm)
+T1        28mil (0.7112mm)         Round          5                1.12 Inch (28.39 mm)
+T2        31mil (0.7874mm)         Round          6                0.52 Inch (13.30 mm)
+T3        32mil (0.8128mm)         Round          32               3.60 Inch (91.44 mm)
+T4        35mil (0.889mm)          Round          10               2.33 Inch (59.10 mm)
 ---------------------------------------------------------------------------
-Totals                                            54               6.73 Inch (170.91 mm)
+Totals                                            53               7.57 Inch (192.23 mm)
 
 Total Processing Time (hh:mm:ss) : 00:00:01

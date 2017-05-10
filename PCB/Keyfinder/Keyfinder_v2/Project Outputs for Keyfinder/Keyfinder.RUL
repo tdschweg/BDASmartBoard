@@ -1,4 +1,4 @@
-DRC Rules Export File for PCB: C:\Users\Matthias\Documents\BDASmartBoard\PCB\Keyfinder\Keyfinder_v1\Keyfinder.PcbDoc
+DRC Rules Export File for PCB: C:\Users\Matthias\Documents\BDASmartBoard\PCB\Keyfinder\Keyfinder_v2\Keyfinder.PcbDoc
 RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
 RuleKind=Width|RuleName=Width|Scope=Board|Minimum=13.00
 RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=13.00
