@@ -478,19 +478,27 @@ static void KeyfinderFunctionDetectorTask(void *pvParameters){
 	(void)pvParameters; /* not used */
 	portTickType xTime;
 	for(;;){
-		if(PL_CONFIG_HAS_KEYFINDER_A){
-			ProximityDetectorEvaluation(KEYFINDER_A);
-		}
-		if(PL_CONFIG_HAS_KEYFINDER_B){
-			ProximityDetectorEvaluation(KEYFINDER_B);
-		}
-		if(PL_CONFIG_HAS_KEYFINDER_C){
-			ProximityDetectorEvaluation(KEYFINDER_C);
-		}
-		if(PL_CONFIG_HAS_KEYFINDER_D){
-			ProximityDetectorEvaluation(KEYFINDER_D);
-		}
+		if(LightDetectorEvaluation()){
+			//Power Mode on
+			PowerModeProximityDetector(TRUE);
 
+			if(PL_CONFIG_HAS_KEYFINDER_A){
+				ProximityDetectorEvaluation(KEYFINDER_A);
+			}
+			if(PL_CONFIG_HAS_KEYFINDER_B){
+				ProximityDetectorEvaluation(KEYFINDER_B);
+			}
+			if(PL_CONFIG_HAS_KEYFINDER_C){
+				ProximityDetectorEvaluation(KEYFINDER_C);
+			}
+			if(PL_CONFIG_HAS_KEYFINDER_D){
+				ProximityDetectorEvaluation(KEYFINDER_D);
+			}
+		}
+		else{
+			//Power Mode off
+			PowerModeProximityDetector(FALSE);
+		}
 		//Go into Low Power Mode (tiny and mtch101)
 		FRTOS1_vTaskDelay(250/portTICK_PERIOD_MS);
 	}
