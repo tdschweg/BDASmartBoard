@@ -12,7 +12,9 @@
 #include "LEDD.h"
 #include "SmartBoard.h"
 
-
+/*
+ * Die Plattform SmartBoard (LED A-D und Proximity Detector Initialization) wird initialisiert.
+ */
 void platform_Init(void){
 	LED1_Init();
 	//Aktivierung LED init

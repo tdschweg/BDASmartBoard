@@ -11,6 +11,9 @@
 #include "ALERT_LED.h"
 #include "ALERT_BUZZER.h"
 
+/*
+ * Die Plattform Keyfinder (Battery Control LED, Alert LED und Alert Buzzer) wird initialisiert.
+ */
 void platform_Init(void){
 	LED1_Init();
 	BAT_KON_LED_Init();

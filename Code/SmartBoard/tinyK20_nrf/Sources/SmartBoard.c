@@ -109,6 +109,9 @@ void LEDVisualisation(uint8_t LED_Nr, bool state){
 
 /*
  * Init Button Task
+ * Die Initialisierung kann mittels eines Tasters, welcher sich am Rand des SmartBoards befindet, gestartet werden, sofern der Licht Detektor Licht detektiert.
+ * Während der Aktualisierung des Normalzustandes leuchten die zu den aktivierten Schalen passenden Keyfinder Aktivierung LEDs auf.
+ * Die Initialisierung dauert so lange, wie der Taster betätigt ist.
  */
 static void InitButtonTask(void *pvParameters){
 	(void)pvParameters; /* not used */
@@ -178,6 +181,10 @@ static void InitButtonTask(void *pvParameters){
 
 /*
  * Proximity Detector Init
+ * Die Initialisierung der Proximity Detectors A-D wird über eine State Maschine vollzogen.
+ * Die State Maschine ist für alle Proximity Detector identisch.
+ * Die Initialisierung der Proximity Detectors A-D läuft sequentiell ab.
+ * Grund für die notwendige Initialisierung der einzelnen Proximity Detectors A-D sind individuelle Anpassungen an die Umgebung.
  */
 void ProximityDetectorInit(void){
 	uint16_t proximity_delay = 1000;
@@ -408,6 +415,12 @@ void IncreaseProximityDetectorTimeout(uint8_t Keyfinder_Nr){
 
 /*
  * Proximity Detector Evaluation
+ * Wird ein zweimaliges Klopfen in eine freigeschaltene Schale detektiert, so wird die Keyfinder Funktion für den zur Schale passenden Keyfinder aktiviert/deaktiviert.
+ * Hierbei wird das Keyfinder Function Progress Flag gesetzt, dieses Flag wird im Task Radio Task benötigt, um den Arbeitsschritt der Keyfinder Funktion zu überwachen.
+ * Da ein Befehl nur einmal gesendet wird und nicht dauernd (polling).
+ * Die Auswertung der Proximity Detectors A-D geschieht über eine Mealy State Maschine.
+ * Die State Maschine gilt für alle Proximity Detector gleich.
+ * Wenn ein Zustand länger als 2.5s andauert, wird ein Timeout erreicht und die State Maschine auf Zustand Idle zurückgesetzt.
  */
 void ProximityDetectorEvaluation(uint8_t Keyfinder_Nr){
 	switch(getProximityDetectorState(Keyfinder_Nr)){
@@ -473,6 +486,8 @@ void ProximityDetectorEvaluation(uint8_t Keyfinder_Nr){
 
 /*
  * Keyfinder Function Detector Task
+ * Der Task Keyfinder Function Detector Task wertet die Aktivitäten der freigeschatenen Proximity Detectors aus, sofern der Licht Detektor Licht detektiert.
+ * Wird ein zweimaliges Klopfen in eine freigeschaltene Schale detektiert, so wird die Keyfinder Funktion für den zur Schale passenden Keyfinder aktiviert/deaktiviert.
  */
 static void KeyfinderFunctionDetectorTask(void *pvParameters){
 	(void)pvParameters; /* not used */

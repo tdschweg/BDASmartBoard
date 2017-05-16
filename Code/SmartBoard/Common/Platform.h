@@ -2,7 +2,7 @@
  * Platform.h
  *
  *  Created on: 21.03.2017
- *      Author: tdschweg
+ *      Author: Matthias Schwegler
  */
 
 #ifndef SOURCES_PLATFORM_H_
@@ -11,7 +11,11 @@
 #include <stdint.h>
 
 /*
- * KEYFINDER - Maske
+ * Schnittstellenbeschreibung zwischnen SmartBoard und Keyfinder.
+ * Das Datenpaket zwischen SmartBoard und Keyfinder beinhaltet den Zustand welcher der Keyfinder einnhemen soll,
+ * das Collective Intelligence Bit für das Schwam Denken sowie die Keyfinder Nr des anzupingenden Keyfinders.
+ *
+ * KEYFINDER - Maske:
  * Maske: STATE | Collective Intelligence | NR
  *
  * 0 = Keyfinder A

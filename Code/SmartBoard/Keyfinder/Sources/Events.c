@@ -191,7 +191,13 @@ void SM1_OnRxCharExt(SM1_TComData Chr)
 /* ===================================================================*/
 void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-  /* Write your code here ... */
+	/*
+	 * Durch das TinyK20 wird ein Rechteck-Signal mit einer Frequenz von 1.4 kHz erzeugt.
+	 * Dieses Signal trifft einen Resonanz Punkt des Piezo-Summers.
+	 * Daraufhin beginnt der Piezo-Summer zu schwingen.
+	 * Die Schwingungen erzeugen einen Pieps Ton von 78dB (Abstand 10cm).
+	 */
+
 	//ALERT On (0.5 Hz)
 	if(getBuzzerState() == TRUE){
 		if(alert_cnt<2700){

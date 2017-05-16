@@ -29,6 +29,12 @@ bool getBuzzerState(void){
 	return buzzer_state;
 }
 
+/*
+ * Durch das TinyK20 wird ein Rechteck-Signal mit einer Frequenz von 1.4 kHz erzeugt.
+ * Dieses Signal trifft einen Resonanz Punkt des Piezo-Summers.
+ * Daraufhin beginnt der Piezo-Summer zu schwingen.
+ * Die Schwingungen erzeugen einen Pieps Ton von 78dB (Abstand 10cm).
+ */
 void KeyfinderAlert(bool state){
 	//Keyfinder wird angepingt
 	if(state==1){
@@ -45,6 +51,7 @@ void KeyfinderAlert(bool state){
 
 /*
  * Keyfinder Battery Evaluation Task
+ * Der Keyfinder Battery Evaluation Task wertet die Batteriespannung, periodisch all 5s, aus.
  */
 static void KeyfinderBatEvaluationTask(void *pvParameters){
 	(void)pvParameters; /* not used */

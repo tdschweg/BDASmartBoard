@@ -1,7 +1,7 @@
 /*
  * Application.h
  *
- *      Author: Erich Styger
+ *      Author: Matthias Schwegler
  */
 
 #ifndef APPLICATION_H_

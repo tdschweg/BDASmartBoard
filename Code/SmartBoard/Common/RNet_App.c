@@ -33,6 +33,14 @@
 #include "Keyfinder.h"
 #endif
 
+/*
+ * Für die Kommunikation wird der RNET Stack verwendet.
+ * Der RNET Stack benötigt Buffer, um zu sendende bzw. empfangende Nachrichten speichern zu können.
+ * Hier werden die Buffer von dem Betriebssystem FreeRTOS in Form von Queues zur Verfügung gestellt.
+ * Jedes Element in der Queue beinhaltet eine Nachricht, welche in diesem Fall den Payload von 32 Bytes plus ein Overhead Byte, insgesamt also 33 Bytes aufweist.
+ * Der RNET Stack sendet bzw. empfängt Daten Blockweise über den SPI-Bus.
+ */
+
 static RNWK_ShortAddrType APP_dstAddr = RNWK_ADDR_BROADCAST; /* destination node address */
 
 typedef enum {
@@ -79,7 +87,14 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
       return ERR_OK;
 
 /*
-* Keyfinder TASK
+* Radio Task, Part Keyfinder
+* Wird nun eine Nachricht empfangen so wird als erstes der Type der Nachricht geprüft,
+* handelt es sich um den Type RAPP_MSG_TYPE_PING so handelt es sich beim Inhalt der Nachricht um einen Keyfinder Befehl.
+* Als nächstes wird der Inhalt der Nachricht ausgewertet, gemäss der Schnittstellenvereinbarung zwischen SmartBoard und Keyfinder.
+* Aus der Nachricht kann somit ermittelt werden:
+* Welcher Keyfinder gesucht wird und welchen Zustand dieser einnehmen soll.
+* Falls es sich beim gesuchten Keyfinder um den Empfänger handeln so wird der, aus der Nachricht evaluierte, Zustand angenommen.
+* Falls es sich jedoch nicht um den gesuchten Keyfinder handelt so leitet der Keyfinder die Nachricht einmal weiter, um den gesuchten Keyfinder zu erreichen.
 */
     case RAPP_MSG_TYPE_PING:
     	*handled = TRUE;
@@ -89,11 +104,20 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
     	CollectiveIntelligence_state = (val & KEYFINDER_ON) >> 2;
 		alert_state = (val & KEYFINDER_ON) >> 3;
 
-		//Keyfinder Alert
+		/*
+		 * Keyfinder Alarm
+		 * Der Alarm besteht aus einer LED sowie einem Piezo-Summer. Beide pulsieren mit 0.5 Hz.
+		 */
 		if(keyfinder_nr == KEYFINDER_NR){
 			KeyfinderAlert(alert_state);
 		}
-		//Schwarm Denken
+		/*
+		 * Schwarm Denken
+		 * Befindet sich ein Keyfinder ausserhalb der Reichweite des SmartBoard so werden die übrigen aktivierten Keyfinder als Relais verwendet um den gewünschten Keyfinder zu erreichen.
+		 * Das Relais, umfunktionierter Keyfinder, sendet die Nachricht für den gesuchten Keyfinder einmal weiter.
+		 * Wenn die Nachricht von einem Relais einmal weitergeleitet wurde so verändert das Relais die Nachricht und gibt an, dass die Nachricht einmal weitergeleitet wurde.
+		 * Hierbei muss das Relais die Nachricht überschreiben und das Collective Intelligence Bit von 1 auf 0 setzen.
+		 */
 		else{
 			if(CollectiveIntelligence_state == CollectiveIntelligence_ON){
 				val = alert_state | CollectiveIntelligence_OFF | keyfinder_nr;
@@ -108,6 +132,14 @@ static uint8_t HandleDataRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *da
   } /* switch */
   return ERR_OK;
 }
+
+/*
+ * Um Daten empfangen zu können wird ein Message Handler Table (Pointer to Function) definiert.
+ * Wenn immer nun der Low-Level Radio Driver eine Nachricht empfängt, durchläuft diese den RNET Stack, bis sie zu diesem Message Handler Table gelangt.
+ * Der Handler kann nun die Nachricht untersuchen und darauf entsprechend reagieren.
+ * Der Handler empfängt die Message Type, Size, Message Payload Data und die Adresse des Senders (sAddr).
+ * Als Message Type wird der Type RAPP_MSG_TYPE_PING = 0x50 definiert.
+ */
 
 static const RAPP_MsgHandler handlerTable[] = 
 {
@@ -127,6 +159,17 @@ static void RadioPowerUp(void) {
   }
   (void)RNET1_PowerUp();
 }
+
+/*
+ * Der Radio Task beinhaltet eine State Maschine Radio Process, um den RF-Transceiver zu starten, mit den Zuständen:
+ * - NONE
+ * - POWER UP
+ * - TX RX
+ * Von dem Zustand NONE, wird der RF-Transceiver in den Zustand POWER UP versetzt.
+ * Diese Zustandsänderung von NONE zu POWER UP benötigt eine Wartezeit von 100ms damit das Modul ordnungsgemäss eingeschaltet werden kann.
+ * Die Wartezeit von 100ms stammt aus dem Datenblatt des RF-Transceivers (nRF24L01+, 2017).
+ * Nach dem Zustand POWER UP gelangt das Modul in den Zustand TX RX, es ist nun bereit Daten zu senden bzw. zu empfangen sowie die Daten auszuwerten.
+ */
 
 static void Process(void) {
   for(;;) {
@@ -174,10 +217,24 @@ static portTASK_FUNCTION(RadioTask, pvParameters) {
 #endif
 
 /*
- * SmartBoard Radio Task
+ * Radio Task
+ * Der Task Radio Task ist einzig für den RF-Transceiver, das Senden/Empfangen von Daten Pakete, zuständig.
+ * Er wird periodisch all 500ms aufgerufen.
+ * Als erstes wird die Knoten Adresse festgelegt.
+ * Es wird eine Broadcast Node Address 0xFF als Default definiert.
+ * Das SmartBoard sowie die Keyfinder haben dieselbe Knoten Adresse.
+ * Dies ist die Voraussetzung für das Implementieren eines Schwarm Denkens.
+ * Durch die State Maschine Radio Process wird der RF-Transceiver initialisiert. Der Zustand RX TX der State Maschine Process Radio wird periodisch aufgerufen.
+ * In diesem Zustand werden gespeicherte Daten gesendet bzw. empfangen und ausgewertet.
  */
 #if !PL_CONFIG_IS_KEYFINDER
 
+		/*
+		 * Radio Task, Part SmartBoard
+		 * Wenn das Keyfinder Function Progress Flag gesetzt ist, sofern Licht Detektor Licht detektiert, wird der aktivierte Keyfinder angepingt.
+		 * Hierbei wird dem Keyfinder mitgeteilt welchen Zustand er einnehmen soll.
+		 * Konnte der Keyfinder angepingt werden, so wir das Keyfinder Function Progress Flag zurück gesetzt.
+		 */
 		Process();
 
 		if(LightDetectorEvaluation() && getKeyfinderFunctionProgress()==TODO){
