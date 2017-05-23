@@ -81,7 +81,7 @@ static uint8_t ProximityDetectorD_Timeout=0;
  * Light Detector Evaluation
  */
 bool LightDetectorEvaluation(void){
-	return !LightDetector_GetVal();
+	return LightDetector_GetVal();
 }
 
 
