@@ -23,7 +23,7 @@
  * 2 = Keyfinder C
  * 3 = Keyfinder D
  */
-#define KEYFINDER_NR			  KEYFINDER_A
+#define KEYFINDER_NR			  KEYFINDER_D
 #endif
 
 /*
